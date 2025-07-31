@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { League_Spartan } from "next/font/google";
 import "./globals.css";
 import ThemeProvider from "@/context/ThemeProvider";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const leagueSpartan = League_Spartan({
   variable: "--font-league-spartan",
@@ -21,7 +22,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${leagueSpartan.variable} antialiased`}>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ClerkProvider>
+          <ThemeProvider>{children}</ThemeProvider>
+        </ClerkProvider>
       </body>
     </html>
   );
