@@ -21,7 +21,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${leagueSpartan.variable} antialiased`}>
+      <body
+        className={`${leagueSpartan.variable} bg-light-200_dark-100 antialiased`}
+      >
         <ClerkProvider>
           <ThemeProvider>{children}</ThemeProvider>
         </ClerkProvider>

@@ -13,12 +13,14 @@
   --color-dark-300: #1e2139;
   --color-dark-400: #252945;
   /* light background */
-  --color-bg-light-100: #f8f8fb;
+  --color-light-100: #ffffff;
+  --color-light-200: #f8f8fb;
 
   /* muted blues */
-  --color-muted-blues-100: #dfe3fa;
+  --color-muted-blues-100: #dee2fa;
   --color-muted-blues-200: #888eb0;
   --color-muted-blues-300: #7e88c3;
+  --color-muted-blues-400: #848bb1;
 
   /* accent red */
   --color-accent-red-300: #ff9696;
@@ -43,8 +45,20 @@
 @utility body-variant {
   @apply text-[13px] font-medium leading-[15px] tracking-[-0.25px];
 }
+@utility bg-light-200_dark-100 {
+  @apply bg-light-200 dark:bg-dark-100;
+}
+@utility text-dark-100_light-100 {
+  @apply text-dark-100 dark:text-light-100;
+}
+@utility text-muted-blues-200_muted-blues-200 {
+  @apply text-muted-blues-200 dark:text-muted-blues-100;
+}
+@utility text-muted-blues-400_light-100 {
+  @apply text-muted-blues-400 dark:text-light-100;
+}
 
-:root {
+@utility: root {
   font-family: "League Spartan", sans-serif;
   --radius: 0.625rem;
   --background: oklch(1 0 0);
