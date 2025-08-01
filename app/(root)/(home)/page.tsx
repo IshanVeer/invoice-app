@@ -1,12 +1,12 @@
+import InvoiceCard from "@/components/invoice/InvoiceCard";
 import Button from "@/components/ui/Button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { invoiceData } from "@/constants";
 import Image from "next/image";
 
 export default function Home() {
@@ -85,6 +85,8 @@ export default function Home() {
           <Button label="new" buttonStyle="button-1" />
         </div>
       </div>
+      {/* invoice list */}
+      <InvoiceCard />
     </div>
   );
 }
