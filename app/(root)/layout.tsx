@@ -8,7 +8,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       <MobileNav />
       <div className="flex">
         <LeftSideBar />
-        <section>{children}</section>
+        <section className="flex-1">{children}</section>
       </div>
     </main>
   );
