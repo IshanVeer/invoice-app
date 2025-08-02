@@ -14,7 +14,7 @@ const EmptyInvoice = () => {
       <h2 className="hm-bold text-dark-100_light-100 py-7">
         There is nothing here
       </h2>
-      <p className="body-variant text-muted-blues-200">
+      <p className="body-variant text-muted-blues-200_muted-blues-100">
         Create an invoice by clicking the
         <span className="font-bold">New</span> button and get started
       </p>
