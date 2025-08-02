@@ -1,3 +1,4 @@
+import EmptyInvoice from "@/components/invoice/EmptyInvoice";
 import InvoiceCard from "@/components/invoice/InvoiceCard";
 import Button from "@/components/ui/Button";
 import {
@@ -87,9 +88,13 @@ export default function Home() {
       </div>
       {/* invoice list */}
       <div className="flex flex-col gap-4 py-8">
-        {invoiceData.map((invoice) => (
-          <InvoiceCard key={invoice.id} invoice={invoice} />
-        ))}
+        {invoiceData && invoiceData.length > 0 ? (
+          invoiceData.map((invoice) => (
+            <InvoiceCard key={invoice.id} invoice={invoice} />
+          ))
+        ) : (
+          <EmptyInvoice />
+        )}
       </div>
     </div>
   );

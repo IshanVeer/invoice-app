@@ -1,4 +1,6 @@
-export const invoiceData = [
+import { InvoiceProps } from "@/types";
+
+export const invoiceData: InvoiceProps[] = [
   {
     id: "RT3080",
     createdAt: "2021-08-18",
