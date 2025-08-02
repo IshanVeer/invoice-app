@@ -86,7 +86,11 @@ export default function Home() {
         </div>
       </div>
       {/* invoice list */}
-      <InvoiceCard />
+      <div className="flex flex-col gap-4 py-8">
+        {invoiceData.map((invoice) => (
+          <InvoiceCard key={invoice.id} invoice={invoice} />
+        ))}
+      </div>
     </div>
   );
 }
