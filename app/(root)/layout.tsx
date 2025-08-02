@@ -6,9 +6,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <main>
       <MobileNav />
-      <div className="flex">
+      <div className="flex h-screen">
         <LeftSideBar />
-        <section className="flex-1">{children}</section>
+        <section className="flex-1 overflow-auto">{children}</section>
       </div>
     </main>
   );

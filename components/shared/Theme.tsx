@@ -6,7 +6,7 @@ import React from "react";
 const Theme = () => {
   const { mode, setMode } = useTheme();
   return (
-    <>
+    <div className="md:py-7">
       {mode === "light" ? (
         <button onClick={() => setMode("dark")}>
           <Image
@@ -26,7 +26,7 @@ const Theme = () => {
           />
         </button>
       )}
-    </>
+    </div>
   );
 };
 
