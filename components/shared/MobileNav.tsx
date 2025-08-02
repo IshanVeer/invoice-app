@@ -16,9 +16,11 @@ const MobileNav = () => {
         />
       </div>
 
-      <div className="flex items-center">
+      <div className="flex items-center h-full">
         <Theme />
-        <div className="text-white">avatar</div>
+        <div className="text-white px-4 border-l border-[#484e6d] h-full">
+          avatar
+        </div>
       </div>
     </div>
   );

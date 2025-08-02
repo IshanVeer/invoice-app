@@ -12,20 +12,26 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className=" px-6 py-10">
+    <div className=" px-6 md:px-12 py-10 md:py-16">
       {/* heading */}
       <div className="flex justify-between items-center w-full">
         <div className="">
           <h2 className="hm-bold">Invoices</h2>
-          <p className="body text-muted-blues-200_muted-blues-100 py-3">
+          <p className="md:hidden body text-muted-blues-200_muted-blues-100 pt-3 md:pt-4">
             {7} invoices
+          </p>
+          <p className="max-md:hidden body text-muted-blues-200_muted-blues-100 pt-3">
+            There are 7 total invoices
           </p>
         </div>
         <div className="flex items-center gap-5">
           <DropdownMenu>
             <DropdownMenuTrigger className="flex gap-3">
-              <p className="text-dark-100_light-100 capitalize hs-bold-variant">
+              <p className="md:hidden text-dark-100_light-100 capitalize hs-bold-variant">
                 filter
+              </p>{" "}
+              <p className="max-md:hidden text-dark-100_light-100 capitalize hs-bold-variant">
+                filter by status
               </p>{" "}
               <Image
                 src="/assets/icon-arrow-down.svg"
@@ -83,7 +89,12 @@ export default function Home() {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-          <Button label="new" buttonStyle="button-1" />
+          <Button className="md:hidden" label="new" buttonStyle="button-1" />
+          <Button
+            className="max-md:hidden"
+            label="new invoice"
+            buttonStyle="button-1"
+          />
         </div>
       </div>
       {/* invoice list */}

@@ -3,6 +3,7 @@ import Image from "next/image";
 
 interface Buttonprops {
   label: string;
+  className?: string;
   buttonStyle:
     | "button-1"
     | "button-2"
@@ -12,7 +13,7 @@ interface Buttonprops {
     | "button-6";
 }
 
-const Button = ({ buttonStyle, label }: Buttonprops) => {
+const Button = ({ buttonStyle, label, className }: Buttonprops) => {
   return (
     <button
       className={`${
@@ -29,7 +30,7 @@ const Button = ({ buttonStyle, label }: Buttonprops) => {
           : buttonStyle === "button-6"
           ? "px-7 py-4 bg-light-300 text-muted-blues-300 hover:bg-[#dfe3fa]"
           : ""
-      } rounded-3xl hs-bold-variant capitalize hover:cursor-pointer transition duration-150`}
+      } rounded-3xl hs-bold-variant capitalize hover:cursor-pointer transition duration-150 ${className}`}
     >
       {buttonStyle === "button-1" && (
         <div className="bg-light-100 w-8 h-8 rounded-full flex items-center justify-center">
