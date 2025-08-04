@@ -3,6 +3,7 @@ import { League_Spartan } from "next/font/google";
 import "./globals.css";
 import ThemeProvider from "@/context/ThemeProvider";
 import { ClerkProvider } from "@clerk/nextjs";
+import { dark } from "@clerk/themes";
 
 const leagueSpartan = League_Spartan({
   variable: "--font-league-spartan",
@@ -24,7 +25,11 @@ export default function RootLayout({
       <body
         className={`${leagueSpartan.variable} bg-light-200_dark-100 antialiased`}
       >
-        <ClerkProvider>
+        <ClerkProvider
+          appearance={{
+            baseTheme: dark,
+          }}
+        >
           <ThemeProvider>{children}</ThemeProvider>
         </ClerkProvider>
       </body>
