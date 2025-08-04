@@ -71,11 +71,13 @@ const InvoiceDetailPage = () => {
           <div className="max-md:hidden  flex items-center gap-2 justify-between ">
             <Button buttonStyle="button-3" label="edit" />
             <Button buttonStyle="button-5" label="delete" />
-            <Button buttonStyle="button-2" label="mark as paid" />
+            {invoice.status === "pending" && (
+              <Button buttonStyle="button-2" label="mark as paid" />
+            )}
           </div>
         </div>
         {/* invoice detail container */}
-        <div className="bg-light-100_dark-300 py-6 px-6 lg:px-12 lg:py-6 rounded-[8px] mb-4">
+        <div className="bg-light-100_dark-300 py-6 px-6 lg:px-12 lg:py-8 rounded-[8px] mb-4">
           {/* id and address container */}
           <div className="flex flex-col md:flex-row md:justify-between gap-9">
             <div>

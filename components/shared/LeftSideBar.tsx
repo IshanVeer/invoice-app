@@ -1,6 +1,7 @@
 import React from "react";
 import Theme from "./Theme";
 import Image from "next/image";
+import { SignedIn, UserButton } from "@clerk/nextjs";
 
 const LeftSideBar = () => {
   return (
@@ -18,8 +19,23 @@ const LeftSideBar = () => {
 
       <div className="flex flex-col w-full items-center">
         <Theme />
-        <div className="text-white border-t border-[#484e6d] w-full">
-          avatar
+        <div className="text-white border-t border-[#484e6d] w-full h-20 text-center flex flex-col items-center justify-center">
+          <SignedIn>
+            <UserButton
+              appearance={{
+                elements: {
+                  avatarBox: {
+                    height: "40px !important",
+                    width: "40px !important",
+                  },
+                  userButtonAvatarImage: {
+                    height: "40px !important",
+                    width: "40px !important",
+                  },
+                },
+              }}
+            />
+          </SignedIn>
         </div>
       </div>
     </div>

@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Theme from "./Theme";
+import { SignedIn, UserButton } from "@clerk/nextjs";
 
 const MobileNav = () => {
   return (
@@ -18,8 +19,23 @@ const MobileNav = () => {
 
       <div className="flex items-center h-full">
         <Theme />
-        <div className="text-white px-4 border-l border-[#484e6d] h-full">
-          avatar
+        <div className="text-white w-18 text-center flex flex-col items-center justify-center border-l border-[#484e6d] h-full">
+          <SignedIn>
+            <UserButton
+              appearance={{
+                elements: {
+                  avatarBox: {
+                    height: "32px !important",
+                    width: "32px !important",
+                  },
+                  userButtonAvatarImage: {
+                    height: "32px !important",
+                    width: "32px !important",
+                  },
+                },
+              }}
+            />
+          </SignedIn>
         </div>
       </div>
     </div>
