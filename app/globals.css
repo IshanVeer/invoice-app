@@ -18,15 +18,22 @@
   --color-light-300: #f9f9fd;
 
   /* muted blues */
-  --color-muted-blues-100: #dee2fa;
+  --color-muted-blues-100: #dfe3fa;
   --color-muted-blues-200: #888eb0;
   --color-muted-blues-300: #7e88c3;
-  --color-muted-blues-400: #848bb1;
+  --color-muted-blues-400: #858bb2;
 
   /* accent red */
   --color-accent-red-300: #ff9696;
   --color-accent-red-500: #ec5757;
 }
+
+/* styles */
+@utility container {
+  @apply px-6 md:px-12 lg:px-60 py-10 md:py-16 lg:py-20;
+}
+
+/* fonts */
 
 @utility hl-bold {
   @apply text-[36px] font-bold leading-[66px] tracking-[-1px];
@@ -59,7 +66,7 @@
 @utility bg-muted-blues-100_dark-300 {
   @apply bg-muted-blues-100 dark:bg-dark-300;
 }
-@utility button-bg-light300_dark400 {
+@utility bg-light-300_dark-400 {
   @apply bg-light-300 dark:bg-dark-400;
 }
 /* text colours */
@@ -72,6 +79,9 @@
 }
 @utility text-muted-blues-300_muted-blues-100 {
   @apply text-muted-blues-300 dark:text-muted-blues-100;
+}
+@utility text-muted-blues-400_muted-blues-100 {
+  @apply text-muted-blues-400 dark:text-muted-blues-100;
 }
 @utility text-muted-blues-400_light-100 {
   @apply text-muted-blues-400 dark:text-light-100;

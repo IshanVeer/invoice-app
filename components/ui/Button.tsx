@@ -22,7 +22,7 @@ const Button = ({ buttonStyle, label, className }: Buttonprops) => {
           : buttonStyle === "button-2"
           ? "bg-primary-500 text-light-100 px-7 py-4"
           : buttonStyle === "button-3"
-          ? "button-bg-light300_dark400 hover:bg-[#dfe3fa] hover:dark:bg-light-100 text-muted-blues-300_muted-blues-100 px-7 py-4"
+          ? "bg-light-300_dark-400 hover:bg-[#dfe3fa] hover:dark:bg-light-100 text-muted-blues-300_muted-blues-100 px-7 py-4"
           : buttonStyle === "button-4"
           ? "bg-[#373b53] hover:bg-dark-100 hover:dark:bg-dark-300 text-muted-blues-200_muted-blues-100 px-7 py-4 text-"
           : buttonStyle === "button-5"

@@ -12,7 +12,7 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className=" px-6 md:px-12 lg:px-60 py-10 md:py-16 lg:py-20">
+    <div className="container">
       {/* heading */}
       <div className="flex justify-between items-center w-full">
         <div className="">
