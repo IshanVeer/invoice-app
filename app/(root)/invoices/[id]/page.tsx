@@ -37,39 +37,47 @@ const InvoiceDetailPage = () => {
 
         {/* status container */}
 
-        <div className="flex items-center justify-between py-3.5 px-6 bg-light-100_dark-300 rounded-[8px] mb-4">
-          <p className="text-muted-blues-400_muted-blues-100 body-variant ">
-            Status
-          </p>
-          <div
-            className={`order-4 md:order-5  flex items-center justify-center gap-2 w-[104px] h-[40px]  rounded-[6px] hs-bold-variant capitalize  justify-self-end self-center row-span-2 ${
-              invoice.status === "paid"
-                ? "bg-[#33d69f]/6 text-[#33d69f]"
-                : invoice.status === "pending"
-                ? "bg-[#ff8f00]/6 text-[#ff8f00]"
-                : invoice.status === "draft"
-                ? "bg-[#373b53]/6 dark:bg-[#dee2fa]/6 text-[#373b53] dark:text-[#dee2fa]"
-                : ""
-            }`}
-          >
+        <div className="md:flex items-center justify-between py-3.5 px-6 lg:px-12 lg:py-6 bg-light-100_dark-300 rounded-[8px] mb-4 md:mb-6">
+          <div className="flex items-center justify-between md:gap-5">
+            <p className="text-muted-blues-400_muted-blues-100 body-variant ">
+              Status
+            </p>
             <div
-              className={`w-2 h-2 rounded-full ${
+              className={`flex items-center justify-center gap-2 w-[104px] h-[40px] rounded-[6px] hs-bold-variant capitalize ${
                 invoice.status === "paid"
-                  ? "bg-[#33d69f]"
+                  ? "bg-[#33d69f]/6 text-[#33d69f]"
                   : invoice.status === "pending"
-                  ? "bg-[#ff8f00]"
+                  ? "bg-[#ff8f00]/6 text-[#ff8f00]"
                   : invoice.status === "draft"
-                  ? "bg-[#373b53] dark:bg-[#dee2fa]"
+                  ? "bg-[#373b53]/6 dark:bg-[#dee2fa]/6 text-[#373b53] dark:text-[#dee2fa]"
                   : ""
-              } `}
-            ></div>
-            {invoice.status}
+              }`}
+            >
+              <div
+                className={`w-2 h-2 rounded-full ${
+                  invoice.status === "paid"
+                    ? "bg-[#33d69f]"
+                    : invoice.status === "pending"
+                    ? "bg-[#ff8f00]"
+                    : invoice.status === "draft"
+                    ? "bg-[#373b53] dark:bg-[#dee2fa]"
+                    : ""
+                } `}
+              ></div>
+              {invoice.status}
+            </div>
+          </div>
+
+          <div className="max-md:hidden  flex items-center gap-2 justify-between ">
+            <Button buttonStyle="button-3" label="edit" />
+            <Button buttonStyle="button-5" label="delete" />
+            <Button buttonStyle="button-2" label="mark as paid" />
           </div>
         </div>
         {/* invoice detail container */}
-        <div className="bg-light-100_dark-300 py-6 px-6 rounded-[8px] mb-4">
+        <div className="bg-light-100_dark-300 py-6 px-6 lg:px-12 lg:py-6 rounded-[8px] mb-4">
           {/* id and address container */}
-          <div className="flex flex-col gap-9">
+          <div className="flex flex-col md:flex-row md:justify-between gap-9">
             <div>
               <p className="hs-bold-variant uppercase order-1 mb-1">
                 <span className="text-muted-blues-300">#</span>
@@ -88,7 +96,7 @@ const InvoiceDetailPage = () => {
             </div>
           </div>
           {/* date / client / email container */}
-          <div className="grid grid-cols-2 gap-y-10 py-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-y-10 pt-8 pb-8 md:pt-10 md:pb-12">
             {/* dates */}
             <div className="flex flex-col gap-9">
               {/* invoice date */}
@@ -134,22 +142,51 @@ const InvoiceDetailPage = () => {
           </div>
           {/* pricing container */}
           <div className="rounded-[8px] overflow-hidden">
-            <div className="px-6 bg-light-300_dark-400 pt-8 ">
+            <div className="px-6 bg-light-300_dark-400 pt-8 lg:px-12 lg:pt-10 ">
               {invoice.items.map((item) => (
                 <div
-                  className="flex items-center justify-between pb-8"
+                  className="flex items-center justify-between pb-8 md:pb-10"
                   key={item.name}
                 >
+                  {/* name */}
                   <div>
+                    <p className="max-md:hidden text-muted-blues-300_muted-blues-100 body-variant capitalize pb-4">
+                      item name
+                    </p>
                     <p className="hs-bold-variant text-dark-100_light-100 pb-2">
                       {item.name}
                     </p>
-                    <p className="hs-bold-variant text-muted-blues-300_muted-blues-100">{`${item.quantity} x £ ${item.price}`}</p>
+                    <p className="md:hidden hs-bold-variant text-muted-blues-300_muted-blues-100">{`${item.quantity} x £ ${item.price}`}</p>
                   </div>
-                  <div>
-                    <p className="hs-bold-variant text-dark-100_light-100">
-                      £ {item.total}
-                    </p>
+                  {/* qty */}
+                  <div className="md:flex items-start gap-20 ">
+                    {/* quantity */}
+                    <div className="max-md:hidden text-center">
+                      <p className="max-md:hidden text-muted-blues-300_muted-blues-100 body-variant capitalize pb-4">
+                        QTY.
+                      </p>
+                      <p className="hs-bold-variant text-dark-100_light-100 pb-2">
+                        {item.quantity}
+                      </p>
+                    </div>
+                    {/* Price */}
+                    <div className="max-md:hidden text-center">
+                      <p className="max-md:hidden text-muted-blues-300_muted-blues-100 body-variant capitalize pb-4">
+                        Price
+                      </p>
+                      <p className="hs-bold-variant text-dark-100_light-100 pb-2">
+                        £{item.price}
+                      </p>
+                    </div>
+                    {/* total */}
+                    <div className="text-center">
+                      <p className="max-md:hidden text-muted-blues-300_muted-blues-100 body-variant capitalize pb-4">
+                        Total
+                      </p>
+                      <p className="hs-bold-variant text-dark-100_light-100">
+                        £ {item.total}
+                      </p>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -163,7 +200,7 @@ const InvoiceDetailPage = () => {
         </div>
       </div>
       {/* edit/delete options for mobile */}
-      <div className="py-3.5 px-6 w-full flex items-center justify-between  bg-light-100_dark-300 fixed bottom-0">
+      <div className="md:hidden py-3.5 px-6 w-full flex items-center justify-between  bg-light-100_dark-300 fixed bottom-0">
         <Button buttonStyle="button-3" label="edit" />
         <Button buttonStyle="button-5" label="delete" />
         <Button buttonStyle="button-2" label="mark as paid" />

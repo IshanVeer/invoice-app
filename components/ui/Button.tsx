@@ -18,9 +18,9 @@ const Button = ({ buttonStyle, label, className }: Buttonprops) => {
     <button
       className={`${
         buttonStyle === "button-1"
-          ? "bg-primary-500 text-light-100 flex gap-2 items-center py-2 pr-4 pl-2"
+          ? "bg-primary-500 hover:bg-primary-300 text-light-100 flex gap-2 items-center py-2 pr-4 pl-2"
           : buttonStyle === "button-2"
-          ? "bg-primary-500 text-light-100 px-7 py-4"
+          ? "bg-primary-500 hover:bg-primary-300 text-light-100 px-7 py-4"
           : buttonStyle === "button-3"
           ? "bg-light-300_dark-400 hover:bg-[#dfe3fa] hover:dark:bg-light-100 text-muted-blues-300_muted-blues-100 px-7 py-4"
           : buttonStyle === "button-4"
