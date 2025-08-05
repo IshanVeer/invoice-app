@@ -3,6 +3,7 @@
 import User from "@/database/users.model";
 import { UserParams } from "./shared.types";
 import { connectToDatabase } from "../mongoose";
+import Invoice from "@/database/invoices.model";
 
 // create user
 
@@ -24,9 +25,10 @@ export const getInvoices = async (params: UserParams) => {
   const { clerkId } = params;
 
   try {
-    connectToDatabase();
+    await connectToDatabase();
     const user = await User.findOne({ clerkId }).populate({
       path: "invoices",
+      model: Invoice,
       options: { sort: { createdAt: -1 } },
     });
 

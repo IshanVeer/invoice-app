@@ -21,8 +21,11 @@ export default async function Home() {
   }
 
   const invoicesResult = await getInvoices({ clerkId: userId });
+  console.log(invoicesResult, "invoice result");
 
   const invoiceData = invoicesResult.invoices;
+
+  console.log(invoiceData, " invoice data home page");
 
   return (
     <div className="container">
