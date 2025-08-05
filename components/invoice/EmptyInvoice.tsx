@@ -16,7 +16,7 @@ const EmptyInvoice = () => {
       </h2>
       <p className="body-variant text-muted-blues-200_muted-blues-100 w-[194px]">
         Create an invoice by clicking the
-        <span className="font-bold">New</span> button and get started
+        <span className="font-bold"> New</span> button and get started
       </p>
     </div>
   );
