@@ -1,12 +1,13 @@
+import { formatDate } from "@/lib/utils";
 import { InvoiceDataProps } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 const InvoiceCard = ({ invoice }: InvoiceDataProps) => {
-  const formattedPaymentDueDate = new Date(invoice.paymentDue)
-    .toISOString()
-    .split("T")[0];
+  // const formattedPaymentDueDate = new Date(invoice.paymentDue)
+  //   .toISOString()
+  //   .split("T")[0];
   return (
     <Link href={`/invoices/${invoice._id}`}>
       <div className="bg-light-100_dark-300 p-6 shadow-[0px_10px_10px_rgba(72,84,159,0.1)] rounded-[8px] grid grid-cols-2 md:flex md:items-center md:justify-between gap-y-5">
@@ -18,7 +19,7 @@ const InvoiceCard = ({ invoice }: InvoiceDataProps) => {
           {invoice.clientName}
         </p>
         <p className="text-muted-blues-300_muted-blues-100 body-variant order-3 md:order-2 max-md:self-end ">
-          {`Due ${formattedPaymentDueDate}`}
+          {`Due ${formatDate(invoice.paymentDue)}`}
         </p>
         <div
           className={`order-4 md:order-5  flex items-center justify-center gap-2 w-[104px] h-[40px]  rounded-[6px] hs-bold-variant capitalize  justify-self-end self-center row-span-2 ${

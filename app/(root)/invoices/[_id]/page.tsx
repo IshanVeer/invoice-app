@@ -1,21 +1,43 @@
-"use client";
 import Button from "@/components/ui/Button";
 import { invoiceData } from "@/constants";
+import { getInvoices } from "@/lib/actions/user.action";
+import { formatDate } from "@/lib/utils";
+import { InvoiceProps, ItemsProps } from "@/types";
+import { auth } from "@clerk/nextjs/server";
 
 import Image from "next/image";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+
 import React from "react";
 
-const InvoiceDetailPage = () => {
-  const { id } = useParams();
-  const invoice = invoiceData.find((invoice) => invoice.id === id);
+interface InvoiceDetailPageProps {
+  params: {
+    _id: string;
+  };
+}
+
+const InvoiceDetailPage = async ({ params }: InvoiceDetailPageProps) => {
+  const { userId } = await auth();
+  const { _id } = params;
+  console.log(_id, "id in details page");
+  if (!userId) {
+    return;
+  }
+
+  const invoicesResult = await getInvoices({ clerkId: userId });
+  const invoiceData = invoicesResult.invoices;
+
+  console.log(invoiceData, "invoice data details page");
+  const invoice = invoiceData.find(
+    (invoice: InvoiceProps) => invoice._id.toString() === _id.toString()
+  );
+
   if (!invoice) {
     return;
   }
 
   const grandTotal = invoice.items.reduce(
-    (acc, item) => acc + item.price * item.quantity,
+    (acc: number, item: ItemsProps) => acc + item.price * item.quantity,
     0
   );
 
@@ -107,7 +129,7 @@ const InvoiceDetailPage = () => {
                   Invoice Date
                 </p>
                 <p className="text-dark-100_light-100 hs-bold">
-                  {invoice.createdAt}
+                  {formatDate(invoice.createdAt)}
                 </p>
               </div>
               {/* due date */}
@@ -116,7 +138,7 @@ const InvoiceDetailPage = () => {
                   Payment Due
                 </p>
                 <p className="text-dark-100_light-100 hs-bold">
-                  {invoice.paymentDue}
+                  {formatDate(invoice.paymentDue)}
                 </p>
               </div>
             </div>
@@ -145,13 +167,13 @@ const InvoiceDetailPage = () => {
           {/* pricing container */}
           <div className="rounded-[8px] overflow-hidden">
             <div className="px-6 bg-light-300_dark-400 pt-8 lg:px-12 lg:pt-10 ">
-              {invoice.items.map((item) => (
+              {invoice.items.map((item: ItemsProps) => (
                 <div
                   className="flex items-center justify-between pb-8 md:pb-10"
                   key={item.name}
                 >
                   {/* name */}
-                  <div>
+                  <div className="md:w-[40%]">
                     <p className="max-md:hidden text-muted-blues-300_muted-blues-100 body-variant capitalize pb-4">
                       item name
                     </p>
@@ -161,7 +183,7 @@ const InvoiceDetailPage = () => {
                     <p className="md:hidden hs-bold-variant text-muted-blues-300_muted-blues-100">{`${item.quantity} x £ ${item.price}`}</p>
                   </div>
                   {/* qty */}
-                  <div className="md:flex items-start gap-20 ">
+                  <div className="md:flex items-start gap-20 md:w-[60%] justify-around">
                     {/* quantity */}
                     <div className="max-md:hidden text-center">
                       <p className="max-md:hidden text-muted-blues-300_muted-blues-100 body-variant capitalize pb-4">
