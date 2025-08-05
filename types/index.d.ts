@@ -17,7 +17,7 @@ export interface ItemsProps {
   total: number;
 }
 export interface InvoiceProps {
-  id: string;
+  _id: string;
   createdAt: string;
   paymentDue: string;
   description: string;

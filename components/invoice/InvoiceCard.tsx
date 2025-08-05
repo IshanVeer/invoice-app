@@ -4,18 +4,21 @@ import Link from "next/link";
 import React from "react";
 
 const InvoiceCard = ({ invoice }: InvoiceDataProps) => {
+  const formattedPaymentDueDate = new Date(invoice.paymentDue)
+    .toISOString()
+    .split("T")[0];
   return (
-    <Link href={`/invoices/${invoice.id}`}>
+    <Link href={`/invoices/${invoice._id}`}>
       <div className="bg-light-100_dark-300 p-6 shadow-[0px_10px_10px_rgba(72,84,159,0.1)] rounded-[8px] grid grid-cols-2 md:flex md:items-center md:justify-between gap-y-5">
-        <p className="hs-bold-variant uppercase order-1 mb-2.5 md:mb-0">
+        <p className="hs-bold-variant uppercase break-words whitespace-normal order-1 mb-2.5 md:mb-0">
           <span className="text-muted-blues-300">#</span>
-          {invoice.id}
+          {invoice._id.toString()}
         </p>
         <p className="text-muted-blues-400 body-variant order-2 md:order-3 max-md:justify-self-end">
           {invoice.clientName}
         </p>
         <p className="text-muted-blues-300_muted-blues-100 body-variant order-3 md:order-2 max-md:self-end ">
-          {`Due ${invoice.paymentDue}`}
+          {`Due ${formattedPaymentDueDate}`}
         </p>
         <div
           className={`order-4 md:order-5  flex items-center justify-center gap-2 w-[104px] h-[40px]  rounded-[6px] hs-bold-variant capitalize  justify-self-end self-center row-span-2 ${

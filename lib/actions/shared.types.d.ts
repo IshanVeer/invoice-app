@@ -1,6 +1,6 @@
-export interface CreateUserParams {
+export interface UserParams {
   clerkId: string;
-  name: string;
-  email: string;
-  picture: string;
+  name?: string;
+  email?: string;
+  picture?: string;
 }

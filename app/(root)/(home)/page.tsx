@@ -7,10 +7,23 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { invoiceData } from "@/constants";
+import { getInvoices } from "@/lib/actions/user.action";
+import { InvoiceProps } from "@/types";
+import { auth } from "@clerk/nextjs/server";
+
 import Image from "next/image";
 
-export default function Home() {
+export default async function Home() {
+  const { userId } = await auth();
+
+  if (!userId) {
+    return;
+  }
+
+  const invoicesResult = await getInvoices({ clerkId: userId });
+
+  const invoiceData = invoicesResult.invoices;
+
   return (
     <div className="container">
       {/* heading */}
@@ -100,8 +113,8 @@ export default function Home() {
       {/* invoice list */}
       <div className="flex flex-col gap-4 py-8 md:py-16 lg:py-[70px]">
         {invoiceData && invoiceData.length > 0 ? (
-          invoiceData.map((invoice) => (
-            <InvoiceCard key={invoice.id} invoice={invoice} />
+          invoiceData.map((invoice: InvoiceProps) => (
+            <InvoiceCard key={invoice._id.toString()} invoice={invoice} />
           ))
         ) : (
           <EmptyInvoice />
