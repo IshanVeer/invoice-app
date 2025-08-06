@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${leagueSpartan.variable} bg-light-200_dark-100 antialiased`}
+        className={`${leagueSpartan.variable} bg-light-200 dark:bg-dark-200 antialiased`}
       >
         <ClerkProvider
           appearance={{

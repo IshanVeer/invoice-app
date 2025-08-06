@@ -7,6 +7,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Sheet,
+  SheetContent,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { getInvoices } from "@/lib/actions/user.action";
 import { InvoiceProps } from "@/types";
 import { auth } from "@clerk/nextjs/server";
@@ -105,12 +111,33 @@ export default async function Home() {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-          <Button className="md:hidden" label="new" buttonStyle="button-1" />
-          <Button
-            className="max-md:hidden"
-            label="new invoice"
-            buttonStyle="button-1"
-          />
+
+          <Sheet>
+            <SheetTrigger asChild>
+              <div>
+                {" "}
+                <Button
+                  className="md:hidden"
+                  label="new"
+                  buttonStyle="button-1"
+                />
+                <Button
+                  className="max-md:hidden"
+                  label="new invoice"
+                  buttonStyle="button-1"
+                />
+              </div>
+            </SheetTrigger>
+            <SheetContent
+              className="max-md:w-full bg-light-100_dark-200 sm:max-w-2xl md:w-[616px] md:top-[72px]  md:rounded-r-[20px] lg:top-0 lg:left-[72px]"
+              side="left"
+            >
+              <SheetTitle className="hidden">
+                Are you absolutely sure?
+              </SheetTitle>
+              sheet content
+            </SheetContent>
+          </Sheet>
         </div>
       </div>
       {/* invoice list */}
