@@ -1,6 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
+import { format } from "date-fns";
+import { Calendar as CalendarIcon } from "lucide-react";
+
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 const InvoiceForm = () => {
+  const [date, setDate] = useState<Date | undefined>(new Date());
   return (
     <form>
       <h2 className="hm-bold mb-10">New Invoice</h2>
@@ -149,12 +161,21 @@ const InvoiceForm = () => {
             >
               Postcode
             </label>
-            <input
-              className="border border-muted-blues-100 dark:border-dark-400 outline-0 hs-bold-variant text-dark-100_light-100 px-5 py-4 rounded-[4px] bg-light-100_dark-300"
-              id="client-postcode"
-              name="client-postcode"
-              type="text"
-            />
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  data-empty={!date}
+                  className="data-[empty=true]:text-muted-foreground w-[280px] justify-start text-left font-normal"
+                >
+                  <CalendarIcon />
+                  {date ? format(date, "PPP") : <span>Pick a date</span>}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0">
+                <Calendar mode="single" selected={date} onSelect={setDate} />
+              </PopoverContent>
+            </Popover>
           </div>
 
           {/* client country */}
@@ -181,12 +202,6 @@ const InvoiceForm = () => {
             >
               Invoice Date
             </label>
-            <input
-              className="border border-muted-blues-100 dark:border-dark-400 outline-0 hs-bold-variant text-dark-100_light-100 px-5 py-4 rounded-[4px] bg-light-100_dark-300"
-              id="invoice-date"
-              name="invoice-date"
-              type="text"
-            />
           </div>
           {/* payment terms */}
           <div className="flex flex-col gap-4 col-span-2">

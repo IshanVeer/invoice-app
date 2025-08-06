@@ -1,5 +1,5 @@
-import Button from "@/components/ui/Button";
-import { invoiceData } from "@/constants";
+import CustomButton from "@/components/ui/CustomButton";
+
 import { getInvoices } from "@/lib/actions/user.action";
 import { formatDate } from "@/lib/utils";
 import { InvoiceProps, ItemsProps } from "@/types";
@@ -91,10 +91,10 @@ const InvoiceDetailPage = async ({ params }: InvoiceDetailPageProps) => {
           </div>
 
           <div className="max-md:hidden  flex items-center gap-2 justify-between ">
-            <Button buttonStyle="button-3" label="edit" />
-            <Button buttonStyle="button-5" label="delete" />
+            <CustomButton buttonStyle="button-3" label="edit" />
+            <CustomButton buttonStyle="button-5" label="delete" />
             {invoice.status === "pending" && (
-              <Button buttonStyle="button-2" label="mark as paid" />
+              <CustomButton buttonStyle="button-2" label="mark as paid" />
             )}
           </div>
         </div>
@@ -225,9 +225,9 @@ const InvoiceDetailPage = async ({ params }: InvoiceDetailPageProps) => {
       </div>
       {/* edit/delete options for mobile */}
       <div className="md:hidden py-3.5 px-6 w-full flex items-center justify-between  bg-light-100_dark-300 fixed bottom-0">
-        <Button buttonStyle="button-3" label="edit" />
-        <Button buttonStyle="button-5" label="delete" />
-        <Button buttonStyle="button-2" label="mark as paid" />
+        <CustomButton buttonStyle="button-3" label="edit" />
+        <CustomButton buttonStyle="button-5" label="delete" />
+        <CustomButton buttonStyle="button-2" label="mark as paid" />
       </div>
     </>
   );

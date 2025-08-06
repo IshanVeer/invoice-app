@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import Button from "@/components/ui/Button";
+
 import InvoiceForm from "../form/InvoiceForm";
 import {
   Sheet,
@@ -8,6 +8,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import CustomButton from "@/components/ui/CustomButton";
 
 const FormSheet = () => {
   return (
@@ -15,8 +16,12 @@ const FormSheet = () => {
       <SheetTrigger asChild>
         <div>
           {" "}
-          <Button className="md:hidden" label="new" buttonStyle="button-1" />
-          <Button
+          <CustomButton
+            className="md:hidden"
+            label="new"
+            buttonStyle="button-1"
+          />
+          <CustomButton
             className="max-md:hidden"
             label="new invoice"
             buttonStyle="button-1"
