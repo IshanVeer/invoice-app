@@ -31,25 +31,27 @@ const InvoiceForm = () => {
     <form>
       <h2 className="hm-bold mb-10">New Invoice</h2>
       {/* bill from */}
-      <div>
-        <h3 className="hs-bold-variant text-primary-500 mb-7">Bill From</h3>
-        {/* grid layout */}
-        <div className="grid grid-cols-2 gap-y-7 gap-x-6">
-          {/* street address */}
-          <div className="flex flex-col gap-4 col-span-2">
-            <label
-              className="body-variant text-m text-muted-blues-200_muted-blues-100"
-              htmlFor="street-address"
-            >
-              Street Address
-            </label>
-            <input
-              className="border border-muted-blues-100 dark:border-dark-400 outline-0 hs-bold-variant text-dark-100_light-100 px-5 py-4 rounded-[4px] bg-light-100_dark-300"
-              id="street-address"
-              name="street-address"
-              type="text"
-            />
-          </div>
+      <div className="flex flex-col gap-7">
+        <h3 className="hs-bold-variant text-primary-500 mb-3">Bill From</h3>
+
+        {/* street address */}
+        <div className="flex flex-col gap-4 col-span-2">
+          <label
+            className="body-variant text-m text-muted-blues-200_muted-blues-100"
+            htmlFor="street-address"
+          >
+            Street Address
+          </label>
+          <input
+            className="border border-muted-blues-100 dark:border-dark-400 outline-0 hs-bold-variant text-dark-100_light-100 px-5 py-4 rounded-[4px] bg-light-100_dark-300"
+            id="street-address"
+            name="street-address"
+            type="text"
+          />
+        </div>
+
+        {/* grid layout for country */}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-7">
           {/* city */}
           <div className="flex flex-col gap-4">
             <label
@@ -83,7 +85,7 @@ const InvoiceForm = () => {
           </div>
 
           {/* country */}
-          <div className="flex flex-col gap-4 col-span-2">
+          <div className="flex flex-col gap-4 col-span-2 md:col-span-1">
             <label
               className="body-variant text-m text-muted-blues-200_muted-blues-100"
               htmlFor="country"
@@ -100,58 +102,60 @@ const InvoiceForm = () => {
         </div>
       </div>
       {/* bill to */}
-      <div className="py-10">
-        <h3 className="hs-bold-variant text-primary-500 mb-7">Bill To</h3>
+      <div className="py-10 flex flex-col gap-7">
+        <h3 className="hs-bold-variant text-primary-500 mb-3">Bill To</h3>
         {/* grid layout */}
-        <div className="grid grid-cols-2 gap-y-7 gap-x-6">
-          {/* client name*/}
-          <div className="flex flex-col gap-4 col-span-2">
-            <label
-              className="body-variant text-m text-muted-blues-200_muted-blues-100"
-              htmlFor="client-name"
-            >
-              Client’s Name
-            </label>
-            <input
-              className="border border-muted-blues-100 dark:border-dark-400 outline-0 hs-bold-variant text-dark-100_light-100 px-5 py-4 rounded-[4px] bg-light-100_dark-300"
-              id="client-name"
-              name="client-name"
-              type="text"
-            />
-          </div>
-          {/* client email */}
-          <div className="flex flex-col gap-4 col-span-2">
-            <label
-              className="body-variant text-m text-muted-blues-200_muted-blues-100"
-              htmlFor="client-email"
-            >
-              Client’s Email
-            </label>
-            <input
-              placeholder="alexgrim@mail.com"
-              className="border border-muted-blues-100 dark:border-dark-400 outline-0 hs-bold-variant text-dark-100_light-100 px-5 py-4 rounded-[4px] bg-light-100_dark-300"
-              id="client-email"
-              name="client-email"
-              type="text"
-            />
-          </div>
 
-          {/* client street address */}
-          <div className="flex flex-col gap-4 col-span-2">
-            <label
-              className="body-variant text-m text-muted-blues-200_muted-blues-100"
-              htmlFor="client-street-address"
-            >
-              Street Address
-            </label>
-            <input
-              className="border border-muted-blues-100 dark:border-dark-400 outline-0 hs-bold-variant text-dark-100_light-100 px-5 py-4 rounded-[4px] bg-light-100_dark-300"
-              id="client-street-address"
-              name="client-street-address"
-              type="text"
-            />
-          </div>
+        {/* client name*/}
+        <div className="flex flex-col gap-4 col-span-2">
+          <label
+            className="body-variant text-m text-muted-blues-200_muted-blues-100"
+            htmlFor="client-name"
+          >
+            Client’s Name
+          </label>
+          <input
+            className="border border-muted-blues-100 dark:border-dark-400 outline-0 hs-bold-variant text-dark-100_light-100 px-5 py-4 rounded-[4px] bg-light-100_dark-300"
+            id="client-name"
+            name="client-name"
+            type="text"
+          />
+        </div>
+        {/* client email */}
+        <div className="flex flex-col gap-4 col-span-2">
+          <label
+            className="body-variant text-m text-muted-blues-200_muted-blues-100"
+            htmlFor="client-email"
+          >
+            Client’s Email
+          </label>
+          <input
+            placeholder="alexgrim@mail.com"
+            className="border border-muted-blues-100 dark:border-dark-400 outline-0 hs-bold-variant text-dark-100_light-100 px-5 py-4 rounded-[4px] bg-light-100_dark-300"
+            id="client-email"
+            name="client-email"
+            type="text"
+          />
+        </div>
+
+        {/* client street address */}
+        <div className="flex flex-col gap-4 col-span-2">
+          <label
+            className="body-variant text-m text-muted-blues-200_muted-blues-100"
+            htmlFor="client-street-address"
+          >
+            Street Address
+          </label>
+          <input
+            className="border border-muted-blues-100 dark:border-dark-400 outline-0 hs-bold-variant text-dark-100_light-100 px-5 py-4 rounded-[4px] bg-light-100_dark-300"
+            id="client-street-address"
+            name="client-street-address"
+            type="text"
+          />
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-7">
           {/* client city */}
+
           <div className="flex flex-col gap-4">
             <label
               className="body-variant text-m text-muted-blues-200_muted-blues-100"
@@ -184,7 +188,7 @@ const InvoiceForm = () => {
           </div>
 
           {/* client country */}
-          <div className="flex flex-col gap-4 col-span-2">
+          <div className="flex flex-col gap-4 col-span-2 md:col-span-1">
             <label
               className="body-variant text-m text-muted-blues-200_muted-blues-100"
               htmlFor="client-country"
@@ -198,9 +202,11 @@ const InvoiceForm = () => {
               type="text"
             />
           </div>
+        </div>
+        <div className="flex flex-col md:flex-row gap-7 md:gap-6">
           {/* invoice date */}
 
-          <div className="flex flex-col gap-4 col-span-2">
+          <div className="md:w-full flex flex-col gap-4 col-span-2">
             <p className="body-variant text-m text-muted-blues-200_muted-blues-100">
               Invoice Date
             </p>
@@ -220,12 +226,12 @@ const InvoiceForm = () => {
             </Popover>
           </div>
           {/* payment terms */}
-          <div className="flex flex-col gap-4 col-span-2">
+          <div className="md:w-full flex flex-col gap-4 col-span-2">
             <p className="body-variant text-m text-muted-blues-200_muted-blues-100">
               Payment Terms
             </p>
             <DropdownMenu>
-              <DropdownMenuTrigger className="w-full hover:cursor-pointer flex items-center justify-between border border-muted-blues-100 dark:border-dark-400 outline-0 hs-bold-variant text-dark-100_light-100 px-5 py-4 rounded-[4px] bg-light-100_dark-300">
+              <DropdownMenuTrigger className="w-full hover:cursor-pointer flex items-center justify-between border border-muted-blues-100 dark:border-dark-400 outline-0 hs-bold-variant text-dark-100_light-100 px-5 py-5 rounded-[4px] bg-light-100_dark-300">
                 <p>Net 30 Days</p>
                 <Image
                   src="/assets/icon-arrow-down.svg"
@@ -249,21 +255,21 @@ const InvoiceForm = () => {
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
-          {/* project description */}
-          <div className="flex flex-col gap-4 col-span-2">
-            <label
-              className="body-variant text-m text-muted-blues-200_muted-blues-100"
-              htmlFor="project-description"
-            >
-              Project Description
-            </label>
-            <input
-              className="border border-muted-blues-100 dark:border-dark-400 outline-0 hs-bold-variant text-dark-100_light-100 px-5 py-4 rounded-[4px] bg-light-100_dark-300"
-              id="project-description"
-              name="project-description"
-              type="text"
-            />
-          </div>
+        </div>
+        {/* project description */}
+        <div className="flex flex-col gap-4 col-span-2">
+          <label
+            className="body-variant text-m text-muted-blues-200_muted-blues-100"
+            htmlFor="project-description"
+          >
+            Project Description
+          </label>
+          <input
+            className="border border-muted-blues-100 dark:border-dark-400 outline-0 hs-bold-variant text-dark-100_light-100 px-5 py-4 rounded-[4px] bg-light-100_dark-300"
+            id="project-description"
+            name="project-description"
+            type="text"
+          />
         </div>
       </div>
     </form>
