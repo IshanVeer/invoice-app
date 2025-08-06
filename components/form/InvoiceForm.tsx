@@ -8,9 +8,25 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import Image from "next/image";
+import { labelDayButton } from "react-day-picker";
 
 const InvoiceForm = () => {
   const [date, setDate] = useState<Date | undefined>(new Date());
+  const paymentTermsData = [
+    { label: "Net 1 day", value: 1 },
+    { label: "Net 7 days", value: 7 },
+    { label: "Net 14 days", value: 14 },
+    { label: "Net 30 days", value: 30 },
+  ];
   return (
     <form>
       <h2 className="hm-bold mb-10">New Invoice</h2>
@@ -205,18 +221,33 @@ const InvoiceForm = () => {
           </div>
           {/* payment terms */}
           <div className="flex flex-col gap-4 col-span-2">
-            <label
-              className="body-variant text-m text-muted-blues-200_muted-blues-100"
-              htmlFor="payment-terms"
-            >
+            <p className="body-variant text-m text-muted-blues-200_muted-blues-100">
               Payment Terms
-            </label>
-            <input
-              className="border border-muted-blues-100 dark:border-dark-400 outline-0 hs-bold-variant text-dark-100_light-100 px-5 py-4 rounded-[4px] bg-light-100_dark-300"
-              id="payment-terms"
-              name="payment-terms"
-              type="text"
-            />
+            </p>
+            <DropdownMenu>
+              <DropdownMenuTrigger className="w-full hover:cursor-pointer flex items-center justify-between border border-muted-blues-100 dark:border-dark-400 outline-0 hs-bold-variant text-dark-100_light-100 px-5 py-4 rounded-[4px] bg-light-100_dark-300">
+                <p>Net 30 Days</p>
+                <Image
+                  src="/assets/icon-arrow-down.svg"
+                  alt="payment-terms"
+                  width={10}
+                  height={10}
+                />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                style={{ width: "var(--radix-dropdown-menu-trigger-width)" }}
+                className="w-[100%] border border-muted-blues-100 dark:border-dark-400 outline-0 hs-bold-variant text-dark-100_light-100 px-5 py-4 rounded-[4px] bg-light-100_dark-300"
+              >
+                {paymentTermsData.map((payment) => (
+                  <DropdownMenuItem
+                    className="hover:bg-transparent focus:bg-transparent data-[highlighted]:bg-transparent hover:text-primary-500 hover:cursor-pointer py-3"
+                    key={payment.value}
+                  >
+                    {payment.label}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
           {/* project description */}
           <div className="flex flex-col gap-4 col-span-2">
