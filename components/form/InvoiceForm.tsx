@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
@@ -157,25 +155,16 @@ const InvoiceForm = () => {
           <div className="flex flex-col gap-4">
             <label
               className="body-variant text-m text-muted-blues-200_muted-blues-100"
-              htmlFor="client-postcode"
+              htmlFor="postcode"
             >
               Postcode
             </label>
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button
-                  variant="outline"
-                  data-empty={!date}
-                  className="data-[empty=true]:text-muted-foreground w-[280px] justify-start text-left font-normal"
-                >
-                  <CalendarIcon />
-                  {date ? format(date, "PPP") : <span>Pick a date</span>}
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-auto p-0">
-                <Calendar mode="single" selected={date} onSelect={setDate} />
-              </PopoverContent>
-            </Popover>
+            <input
+              className="border border-muted-blues-100 dark:border-dark-400 outline-0 hs-bold-variant text-dark-100_light-100 px-5 py-4 rounded-[4px] bg-light-100_dark-300"
+              id="postcode"
+              name="postcode"
+              type="text"
+            />
           </div>
 
           {/* client country */}
@@ -196,12 +185,23 @@ const InvoiceForm = () => {
           {/* invoice date */}
 
           <div className="flex flex-col gap-4 col-span-2">
-            <label
-              className="body-variant text-m text-muted-blues-200_muted-blues-100"
-              htmlFor="invoice-date"
-            >
+            <p className="body-variant text-m text-muted-blues-200_muted-blues-100">
               Invoice Date
-            </label>
+            </p>
+            <Popover>
+              <PopoverContent className=" border-0 bg-light-100_dark-300 rounded-[8px] shadow-[0px_10px_10px_rgba(72,84,159,0.1)]">
+                <Calendar mode="single" selected={date} onSelect={setDate} />
+              </PopoverContent>
+              <PopoverTrigger asChild>
+                <div
+                  data-empty={!date}
+                  className="data-[empty=true]:text-muted-foreground hover:cursor-pointer  border border-muted-blues-100 dark:border-dark-400 outline-0 hs-bold-variant text-dark-100_light-100 px-5 py-4 rounded-[4px] bg-light-100_dark-300 flex items-center justify-between"
+                >
+                  <CalendarIcon className="text-muted-blues-200_muted-blues-100" />
+                  {date ? format(date, "PPP") : <span>Pick a date</span>}
+                </div>
+              </PopoverTrigger>
+            </Popover>
           </div>
           {/* payment terms */}
           <div className="flex flex-col gap-4 col-span-2">
