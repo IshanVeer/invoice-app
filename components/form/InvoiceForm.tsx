@@ -12,8 +12,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Image from "next/image";
@@ -46,7 +44,7 @@ const InvoiceForm = () => {
           <input
             className="border border-muted-blues-100 dark:border-dark-400 outline-0 hs-bold-variant text-dark-100_light-100 px-5 py-4 rounded-[4px] bg-light-100_dark-300"
             id="street-address"
-            name="street-address"
+            name="streetAddress"
             type="text"
           />
         </div>
@@ -118,7 +116,7 @@ const InvoiceForm = () => {
           <input
             className="border border-muted-blues-100 dark:border-dark-400 outline-0 hs-bold-variant text-dark-100_light-100 px-5 py-4 rounded-[4px] bg-light-100_dark-300"
             id="client-name"
-            name="client-name"
+            name="clientName"
             type="text"
           />
         </div>
@@ -134,7 +132,7 @@ const InvoiceForm = () => {
             placeholder="alexgrim@mail.com"
             className="border border-muted-blues-100 dark:border-dark-400 outline-0 hs-bold-variant text-dark-100_light-100 px-5 py-4 rounded-[4px] bg-light-100_dark-300"
             id="client-email"
-            name="client-email"
+            name="clientEmail"
             type="text"
           />
         </div>
@@ -150,7 +148,7 @@ const InvoiceForm = () => {
           <input
             className="border border-muted-blues-100 dark:border-dark-400 outline-0 hs-bold-variant text-dark-100_light-100 px-5 py-4 rounded-[4px] bg-light-100_dark-300"
             id="client-street-address"
-            name="client-street-address"
+            name="clientStreetAddress"
             type="text"
           />
         </div>
@@ -160,14 +158,14 @@ const InvoiceForm = () => {
           <div className="flex flex-col gap-4">
             <label
               className="body-variant text-m text-muted-blues-200_muted-blues-100"
-              htmlFor="-clientcity"
+              htmlFor="client-city"
             >
               City
             </label>
             <input
               className="border border-muted-blues-100 dark:border-dark-400 outline-0 hs-bold-variant text-dark-100_light-100 px-5 py-4 rounded-[4px] bg-light-100_dark-300"
               id="client-city"
-              name="client-city"
+              name="clientCity"
               type="text"
             />
           </div>
@@ -176,14 +174,14 @@ const InvoiceForm = () => {
           <div className="flex flex-col gap-4">
             <label
               className="body-variant text-m text-muted-blues-200_muted-blues-100"
-              htmlFor="postcode"
+              htmlFor="client-postcode"
             >
               Postcode
             </label>
             <input
               className="border border-muted-blues-100 dark:border-dark-400 outline-0 hs-bold-variant text-dark-100_light-100 px-5 py-4 rounded-[4px] bg-light-100_dark-300"
-              id="postcode"
-              name="postcode"
+              id="client-postcode"
+              name="clientPostcode"
               type="text"
             />
           </div>
@@ -199,7 +197,7 @@ const InvoiceForm = () => {
             <input
               className="border border-muted-blues-100 dark:border-dark-400 outline-0 hs-bold-variant text-dark-100_light-100 px-5 py-4 rounded-[4px] bg-light-100_dark-300"
               id="client-country"
-              name="client-country"
+              name="clientCountry"
               type="text"
             />
           </div>
@@ -268,7 +266,7 @@ const InvoiceForm = () => {
           <input
             className="border border-muted-blues-100 dark:border-dark-400 outline-0 hs-bold-variant text-dark-100_light-100 px-5 py-4 rounded-[4px] bg-light-100_dark-300"
             id="project-description"
-            name="project-description"
+            name="projectDescription"
             type="text"
           />
         </div>
@@ -290,7 +288,7 @@ const InvoiceForm = () => {
             <input
               className="border border-muted-blues-100 dark:border-dark-400 outline-0 hs-bold-variant text-dark-100_light-100 px-5 py-4 rounded-[4px] bg-light-100_dark-300"
               id="item-name"
-              name="item-name"
+              name="itemName"
               type="text"
             />
           </div>
