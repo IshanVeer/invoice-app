@@ -34,10 +34,10 @@ export default async function Home() {
         <div className="">
           <h2 className="hm-bold md:hl-bold">Invoices</h2>
           <p className="md:hidden body text-muted-blues-200_muted-blues-100 pt-3">
-            {7} invoices
+            {invoiceData.length} invoices
           </p>
           <p className="max-md:hidden body text-muted-blues-200_muted-blues-100">
-            There are 7 total invoices
+            There are {invoiceData.length} total invoices
           </p>
         </div>
         <div className="flex items-center gap-5 md:gap-10">

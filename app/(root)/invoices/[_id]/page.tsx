@@ -104,10 +104,10 @@ const InvoiceDetailPage = async ({ params }: InvoiceDetailPageProps) => {
           <div className="flex flex-col md:flex-row md:justify-between gap-9">
             <div>
               <p className="hs-bold-variant uppercase order-1 mb-1">
-                <span className="text-muted-blues-300">#</span>
+                <span className="text-muted-blues-300"># </span>
                 {invoice.id}
               </p>
-              <p className="text-muted-blues-300_muted-blues-100 body-variant">
+              <p className="text-muted-blues-300_muted-blues-100 body-variant mt-4">
                 {invoice.description}
               </p>
             </div>

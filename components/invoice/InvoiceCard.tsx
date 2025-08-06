@@ -5,9 +5,6 @@ import Link from "next/link";
 import React from "react";
 
 const InvoiceCard = ({ invoice }: InvoiceDataProps) => {
-  // const formattedPaymentDueDate = new Date(invoice.paymentDue)
-  //   .toISOString()
-  //   .split("T")[0];
   return (
     <Link href={`/invoices/${invoice._id}`}>
       <div className="bg-light-100_dark-300 p-6 shadow-[0px_10px_10px_rgba(72,84,159,0.1)] rounded-[8px] grid grid-cols-2 md:flex md:items-center md:justify-between gap-y-5">
