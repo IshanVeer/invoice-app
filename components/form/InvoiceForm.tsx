@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Image from "next/image";
 import { labelDayButton } from "react-day-picker";
+import CustomButton from "../ui/CustomButton";
 
 const InvoiceForm = () => {
   const [date, setDate] = useState<Date | undefined>(new Date());
@@ -28,7 +29,7 @@ const InvoiceForm = () => {
     { label: "Net 30 days", value: 30 },
   ];
   return (
-    <form>
+    <form className="relative">
       <h2 className="hm-bold mb-10">New Invoice</h2>
       {/* bill from */}
       <div className="flex flex-col gap-7">
@@ -270,6 +271,88 @@ const InvoiceForm = () => {
             name="project-description"
             type="text"
           />
+        </div>
+      </div>
+      {/* Item list */}
+      <div className="pb-10">
+        <h2 className="text-[18px] font-bold text-[#777f98] my-10">
+          Items List
+        </h2>
+        <div className="grid grid-cols-4 md:grid-cols-6 items-start gap-x-5 gap-y-7">
+          {/* item name */}
+          <div className="flex flex-col gap-4 col-span-4 md:col-span-2">
+            <label
+              className="body-variant text-m text-muted-blues-200_muted-blues-100"
+              htmlFor="item-name"
+            >
+              Item Name
+            </label>
+            <input
+              className="border border-muted-blues-100 dark:border-dark-400 outline-0 hs-bold-variant text-dark-100_light-100 px-5 py-4 rounded-[4px] bg-light-100_dark-300"
+              id="item-name"
+              name="item-name"
+              type="text"
+            />
+          </div>
+          {/* quantity */}
+          <div className="flex flex-col gap-4">
+            <label
+              className="body-variant text-m text-muted-blues-200_muted-blues-100"
+              htmlFor="quantity"
+            >
+              Qty
+            </label>
+            <input
+              className="border border-muted-blues-100 dark:border-dark-400 outline-0 hs-bold-variant text-dark-100_light-100 px-5 py-4 rounded-[4px] bg-light-100_dark-300"
+              id="quantity"
+              name="quantity"
+              type="number"
+            />
+          </div>
+          {/* price */}
+          <div className="flex flex-col gap-4">
+            <label
+              className="body-variant text-m text-muted-blues-200_muted-blues-100"
+              htmlFor="price"
+            >
+              Price
+            </label>
+            <input
+              className="border border-muted-blues-100 dark:border-dark-400 outline-0 hs-bold-variant text-dark-100_light-100 px-5 py-4 rounded-[4px] bg-light-100_dark-300"
+              id="price"
+              name="price"
+              type="number"
+            />
+          </div>
+          {/* Total */}
+          <div className="flex flex-col gap-7">
+            <p className="body-variant text-m text-muted-blues-200_muted-blues-100">
+              Total
+            </p>
+            <p className="hs-bold-variant text-muted-blues-200">148</p>
+          </div>
+          {/* delete */}
+          <div className="justify-self-end">
+            <Image
+              src="/assets/icon-delete.svg"
+              alt="delete"
+              height={15}
+              width={15}
+            />
+          </div>
+        </div>
+        <CustomButton
+          className="w-full mt-6"
+          label="+ Add New Item"
+          buttonStyle="button-6"
+        />
+      </div>
+      {/* edit/delete options for mobile */}
+      <div className=" w-full py-6  flex items-center justify-between sticky bottom-0 bg-light-100_dark-200">
+        <CustomButton buttonStyle="button-3" label="Discard" />
+        <div className="flex gap-3">
+          <CustomButton buttonStyle="button-4" label="Save as Draft" />
+          <CustomButton buttonStyle="button-2" label="Save & Send" />
         </div>
       </div>
     </form>

@@ -30,7 +30,7 @@ const FormSheet = () => {
       </SheetTrigger>
       <SheetContent
         onInteractOutside={(e) => e.preventDefault()}
-        className="max-md:w-full bg-light-100_dark-200 sm:max-w-2xl md:w-[616px] md:top-[72px]  md:rounded-r-[20px] lg:top-0 lg:left-[72px] px-6 md:px-14 py-8 md:py-16 overflow-y-auto"
+        className="max-md:w-full bg-light-100_dark-200 sm:max-w-2xl md:w-[616px] md:top-[72px]  md:rounded-r-[20px] lg:top-0 lg:left-[72px] px-6 md:px-14 py-0 max-md:pt-8 md:py-16 lg:py-0 lg:pt-16 overflow-y-auto"
         side="left"
       >
         <SheetTitle className="hidden">Are you absolutely sure?</SheetTitle>
