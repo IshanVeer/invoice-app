@@ -15,19 +15,49 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Image from "next/image";
-import { labelDayButton } from "react-day-picker";
+
 import CustomButton from "../ui/CustomButton";
 
 const InvoiceForm = () => {
   const [date, setDate] = useState<Date | undefined>(new Date());
+  const [formData, setFormData] = useState({
+    sendersStreetAddress: "",
+    sendersCity: "",
+    sendersPostcode: "",
+    sendersCountry: "",
+    clientName: "",
+    clientEmail: "",
+    clientStreetAddress: "",
+    clientCity: "",
+    clientPostcode: "",
+    clientCountry: "",
+    projectDescription: "",
+  });
   const paymentTermsData = [
     { label: "Net 1 day", value: 1 },
     { label: "Net 7 days", value: 7 },
     { label: "Net 14 days", value: 14 },
     { label: "Net 30 days", value: 30 },
   ];
+
+  // handle form input
+  const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+    console.log(name, value, "form inputs");
+  };
+
+  // handle form submission
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log(formData, "form data");
+  };
   return (
-    <form className="relative">
+    <form onSubmit={handleFormSubmit} className="relative">
       <h2 className="hm-bold mb-10">New Invoice</h2>
       {/* bill from */}
       <div className="flex flex-col gap-7">
@@ -37,15 +67,17 @@ const InvoiceForm = () => {
         <div className="flex flex-col gap-4 col-span-2">
           <label
             className="body-variant text-m text-muted-blues-200_muted-blues-100"
-            htmlFor="street-address"
+            htmlFor="senders-street-address"
           >
             Street Address
           </label>
           <input
             className="border border-muted-blues-100 dark:border-dark-400 outline-0 hs-bold-variant text-dark-100_light-100 px-5 py-4 rounded-[4px] bg-light-100_dark-300"
-            id="street-address"
-            name="streetAddress"
+            id="senders-street-address"
+            name="sendersStreetAddress"
             type="text"
+            value={formData.sendersStreetAddress}
+            onChange={inputHandler}
           />
         </div>
 
@@ -55,15 +87,17 @@ const InvoiceForm = () => {
           <div className="flex flex-col gap-4">
             <label
               className="body-variant text-m text-muted-blues-200_muted-blues-100"
-              htmlFor="city"
+              htmlFor="senders-city"
             >
               City
             </label>
             <input
               className="border border-muted-blues-100 dark:border-dark-400 outline-0 hs-bold-variant text-dark-100_light-100 px-5 py-4 rounded-[4px] bg-light-100_dark-300"
-              id="city"
-              name="city"
+              id="senders-citycity"
+              name="sendersCity"
               type="text"
+              value={formData.sendersCity}
+              onChange={inputHandler}
             />
           </div>
 
@@ -71,15 +105,17 @@ const InvoiceForm = () => {
           <div className="flex flex-col gap-4">
             <label
               className="body-variant text-m text-muted-blues-200_muted-blues-100"
-              htmlFor="postcode"
+              htmlFor="senders-postcode"
             >
               Postcode
             </label>
             <input
               className="border border-muted-blues-100 dark:border-dark-400 outline-0 hs-bold-variant text-dark-100_light-100 px-5 py-4 rounded-[4px] bg-light-100_dark-300"
-              id="postcode"
-              name="postcode"
+              id="senders-postcode"
+              name="sendersPostcode"
               type="text"
+              value={formData.sendersPostcode}
+              onChange={inputHandler}
             />
           </div>
 
@@ -87,15 +123,17 @@ const InvoiceForm = () => {
           <div className="flex flex-col gap-4 col-span-2 md:col-span-1">
             <label
               className="body-variant text-m text-muted-blues-200_muted-blues-100"
-              htmlFor="country"
+              htmlFor="senders-country"
             >
               Country
             </label>
             <input
               className="border border-muted-blues-100 dark:border-dark-400 outline-0 hs-bold-variant text-dark-100_light-100 px-5 py-4 rounded-[4px] bg-light-100_dark-300"
-              id="country"
-              name="country"
+              id="senders-country"
+              name="sendersCountry"
               type="text"
+              value={formData.sendersCountry}
+              onChange={inputHandler}
             />
           </div>
         </div>
@@ -118,6 +156,8 @@ const InvoiceForm = () => {
             id="client-name"
             name="clientName"
             type="text"
+            value={formData.clientName}
+            onChange={inputHandler}
           />
         </div>
         {/* client email */}
@@ -134,6 +174,8 @@ const InvoiceForm = () => {
             id="client-email"
             name="clientEmail"
             type="text"
+            value={formData.clientEmail}
+            onChange={inputHandler}
           />
         </div>
 
@@ -150,6 +192,8 @@ const InvoiceForm = () => {
             id="client-street-address"
             name="clientStreetAddress"
             type="text"
+            value={formData.clientStreetAddress}
+            onChange={inputHandler}
           />
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-7">
@@ -167,6 +211,8 @@ const InvoiceForm = () => {
               id="client-city"
               name="clientCity"
               type="text"
+              value={formData.clientCity}
+              onChange={inputHandler}
             />
           </div>
 
@@ -183,6 +229,8 @@ const InvoiceForm = () => {
               id="client-postcode"
               name="clientPostcode"
               type="text"
+              value={formData.clientPostcode}
+              onChange={inputHandler}
             />
           </div>
 
@@ -199,6 +247,8 @@ const InvoiceForm = () => {
               id="client-country"
               name="clientCountry"
               type="text"
+              value={formData.clientCountry}
+              onChange={inputHandler}
             />
           </div>
         </div>
@@ -268,6 +318,8 @@ const InvoiceForm = () => {
             id="project-description"
             name="projectDescription"
             type="text"
+            value={formData.projectDescription}
+            onChange={inputHandler}
           />
         </div>
       </div>
