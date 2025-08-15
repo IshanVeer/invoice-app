@@ -3,6 +3,9 @@ import Image from "next/image";
 
 interface Buttonprops {
   label: string;
+  addItemHandler?: () => void;
+  action?: string;
+  buttonType?: "button" | "reset" | "submit";
   className?: string;
   buttonStyle:
     | "button-1"
@@ -13,9 +16,24 @@ interface Buttonprops {
     | "button-6";
 }
 
-const CustomButton = ({ buttonStyle, label, className }: Buttonprops) => {
+const CustomButton = ({
+  buttonStyle,
+  label,
+  className,
+  buttonType,
+  action,
+  addItemHandler,
+}: Buttonprops) => {
+  const clickHandler = () => {
+    switch (action) {
+      case "add-item":
+        return addItemHandler?.();
+    }
+  };
   return (
     <button
+      type={buttonType || "button"}
+      onClick={clickHandler}
       className={`${
         buttonStyle === "button-1"
           ? "bg-primary-500 hover:bg-primary-300 text-light-100 flex gap-2 items-center py-2 pr-4 pl-2"

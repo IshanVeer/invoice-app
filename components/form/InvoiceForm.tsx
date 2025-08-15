@@ -53,6 +53,8 @@ const InvoiceForm = () => {
     }));
   };
 
+  // handle item data
+
   const itemChangeHandler = (
     e: React.ChangeEvent<HTMLInputElement>,
     index: number
@@ -82,7 +84,12 @@ const InvoiceForm = () => {
       return updatedItems;
     });
   };
-  console.log(items, "item list");
+
+  // add items
+
+  const addItemHandler = () => {
+    setItems([...items, { itemName: "", quantity: 0, price: 0, total: 0 }]);
+  };
 
   // handle form submission
   const handleFormSubmit = (e: React.FormEvent) => {
@@ -364,7 +371,7 @@ const InvoiceForm = () => {
         {items.map((item, index) => (
           <div
             key={index}
-            className="grid grid-cols-4 md:grid-cols-6 items-start gap-x-5 gap-y-7"
+            className="grid grid-cols-4 md:grid-cols-6 items-start gap-x-5 gap-y-7 pb-8"
           >
             {/* item name */}
             <div className="flex flex-col gap-4 col-span-4 md:col-span-2">
@@ -442,6 +449,8 @@ const InvoiceForm = () => {
           className="w-full mt-6"
           label="+ Add New Item"
           buttonStyle="button-6"
+          addItemHandler={addItemHandler}
+          action="add-item"
         />
       </div>
       {/* edit/delete options for mobile */}
@@ -449,7 +458,11 @@ const InvoiceForm = () => {
         <CustomButton buttonStyle="button-3" label="Discard" />
         <div className="flex gap-3">
           <CustomButton buttonStyle="button-4" label="Save as Draft" />
-          <CustomButton buttonStyle="button-2" label="Save & Send" />
+          <CustomButton
+            buttonType="submit"
+            buttonStyle="button-2"
+            label="Save & Send"
+          />
         </div>
       </div>
     </form>
