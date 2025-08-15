@@ -33,6 +33,9 @@ const InvoiceForm = () => {
     clientCountry: "",
     projectDescription: "",
   });
+  const [items, setItems] = useState([
+    { itemName: "", quantity: 0, price: 0, total: 0 },
+  ]);
   const paymentTermsData = [
     { label: "Net 1 day", value: 1 },
     { label: "Net 7 days", value: 7 },
@@ -48,8 +51,38 @@ const InvoiceForm = () => {
       ...prev,
       [name]: value,
     }));
-    console.log(name, value, "form inputs");
   };
+
+  const itemChangeHandler = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    const { name, value } = e.target;
+
+    setItems((prev) => {
+      // make a copy of your array
+      const updatedItems = [...prev];
+
+      // ensure numeric values are stored as numbers
+
+      const updatedValues =
+        name === "quantity" || name === "price" ? Number(value) : value;
+
+      updatedItems[index] = {
+        ...updatedItems[index],
+        [name]: updatedValues,
+      };
+
+      // calculate total
+
+      updatedItems[index].total =
+        Number(updatedItems[index].quantity) *
+        Number(updatedItems[index].price);
+
+      return updatedItems;
+    });
+  };
+  console.log(items, "item list");
 
   // handle form submission
   const handleFormSubmit = (e: React.FormEvent) => {
@@ -328,69 +361,83 @@ const InvoiceForm = () => {
         <h2 className="text-[18px] font-bold text-[#777f98] my-10">
           Items List
         </h2>
-        <div className="grid grid-cols-4 md:grid-cols-6 items-start gap-x-5 gap-y-7">
-          {/* item name */}
-          <div className="flex flex-col gap-4 col-span-4 md:col-span-2">
-            <label
-              className="body-variant text-m text-muted-blues-200_muted-blues-100"
-              htmlFor="item-name"
-            >
-              Item Name
-            </label>
-            <input
-              className="border border-muted-blues-100 dark:border-dark-400 outline-0 hs-bold-variant text-dark-100_light-100 px-5 py-4 rounded-[4px] bg-light-100_dark-300"
-              id="item-name"
-              name="itemName"
-              type="text"
-            />
+        {items.map((item, index) => (
+          <div
+            key={index}
+            className="grid grid-cols-4 md:grid-cols-6 items-start gap-x-5 gap-y-7"
+          >
+            {/* item name */}
+            <div className="flex flex-col gap-4 col-span-4 md:col-span-2">
+              <label
+                className="body-variant text-m text-muted-blues-200_muted-blues-100"
+                htmlFor={`item-name-${index}`}
+              >
+                Item Name
+              </label>
+              <input
+                className="border border-muted-blues-100 dark:border-dark-400 outline-0 hs-bold-variant text-dark-100_light-100 px-5 py-4 rounded-[4px] bg-light-100_dark-300"
+                id={`item-name-${index}`}
+                name="itemName"
+                type="text"
+                value={item.itemName}
+                onChange={(e) => itemChangeHandler(e, index)}
+              />
+            </div>
+            {/* quantity */}
+            <div className="flex flex-col gap-4">
+              <label
+                className="body-variant text-m text-muted-blues-200_muted-blues-100"
+                htmlFor="quantity"
+              >
+                Qty
+              </label>
+              <input
+                className="border border-muted-blues-100 dark:border-dark-400 outline-0 hs-bold-variant text-dark-100_light-100 px-5 py-4 rounded-[4px] bg-light-100_dark-300"
+                id="quantity"
+                name="quantity"
+                type="number"
+                value={item.quantity}
+                onChange={(e) => itemChangeHandler(e, index)}
+              />
+            </div>
+            {/* price */}
+            <div className="flex flex-col gap-4">
+              <label
+                className="body-variant text-m text-muted-blues-200_muted-blues-100"
+                htmlFor="price"
+              >
+                Price
+              </label>
+              <input
+                className="border border-muted-blues-100 dark:border-dark-400 outline-0 hs-bold-variant text-dark-100_light-100 px-5 py-4 rounded-[4px] bg-light-100_dark-300"
+                id="price"
+                name="price"
+                type="number"
+                value={item.price}
+                onChange={(e) => itemChangeHandler(e, index)}
+              />
+            </div>
+            {/* Total */}
+            <div className="flex flex-col gap-7">
+              <p className="body-variant text-m text-muted-blues-200_muted-blues-100">
+                Total
+              </p>
+              <p className="hs-bold-variant text-muted-blues-200">
+                {item.total}
+              </p>
+            </div>
+            {/* delete */}
+            <button className="justify-self-end">
+              <Image
+                src="/assets/icon-delete.svg"
+                alt="delete"
+                height={15}
+                width={15}
+              />
+            </button>
           </div>
-          {/* quantity */}
-          <div className="flex flex-col gap-4">
-            <label
-              className="body-variant text-m text-muted-blues-200_muted-blues-100"
-              htmlFor="quantity"
-            >
-              Qty
-            </label>
-            <input
-              className="border border-muted-blues-100 dark:border-dark-400 outline-0 hs-bold-variant text-dark-100_light-100 px-5 py-4 rounded-[4px] bg-light-100_dark-300"
-              id="quantity"
-              name="quantity"
-              type="number"
-            />
-          </div>
-          {/* price */}
-          <div className="flex flex-col gap-4">
-            <label
-              className="body-variant text-m text-muted-blues-200_muted-blues-100"
-              htmlFor="price"
-            >
-              Price
-            </label>
-            <input
-              className="border border-muted-blues-100 dark:border-dark-400 outline-0 hs-bold-variant text-dark-100_light-100 px-5 py-4 rounded-[4px] bg-light-100_dark-300"
-              id="price"
-              name="price"
-              type="number"
-            />
-          </div>
-          {/* Total */}
-          <div className="flex flex-col gap-7">
-            <p className="body-variant text-m text-muted-blues-200_muted-blues-100">
-              Total
-            </p>
-            <p className="hs-bold-variant text-muted-blues-200">148</p>
-          </div>
-          {/* delete */}
-          <div className="justify-self-end">
-            <Image
-              src="/assets/icon-delete.svg"
-              alt="delete"
-              height={15}
-              width={15}
-            />
-          </div>
-        </div>
+        ))}
+
         <CustomButton
           className="w-full mt-6"
           label="+ Add New Item"
