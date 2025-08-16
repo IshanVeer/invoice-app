@@ -91,10 +91,14 @@ const InvoiceForm = () => {
     setItems([...items, { itemName: "", quantity: 0, price: 0, total: 0 }]);
   };
 
+  const removeItemHandler = (index: number) => {
+    const updatedItems = items.filter((_, i) => i !== index);
+    setItems(updatedItems);
+  };
+
   // handle form submission
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData, "form data");
   };
   return (
     <form onSubmit={handleFormSubmit} className="relative">
@@ -434,7 +438,10 @@ const InvoiceForm = () => {
               </p>
             </div>
             {/* delete */}
-            <button className="justify-self-end">
+            <button
+              onClick={() => removeItemHandler(index)}
+              className="justify-self-end cursor-pointer"
+            >
               <Image
                 src="/assets/icon-delete.svg"
                 alt="delete"
