@@ -7,7 +7,7 @@ export interface Address {
   country: string;
 }
 export interface Item {
-  name: string;
+  itemName: string;
   quantity: number;
   price: number;
   total: number;
@@ -34,7 +34,7 @@ const AddressSchema = new Schema<Address>({
   country: { type: String, required: true },
 });
 const ItemSchema = new Schema<Item>({
-  name: { type: String, required: true },
+  itemName: { type: String, required: true },
   quantity: { type: Number, required: true },
   price: { type: Number, required: true },
   total: { type: Number, required: true },

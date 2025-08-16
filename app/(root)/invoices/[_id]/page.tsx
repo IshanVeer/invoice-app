@@ -28,8 +28,9 @@ const InvoiceDetailPage = async ({ params }: InvoiceDetailPageProps) => {
   const invoiceData = invoicesResult.invoices;
 
   console.log(invoiceData, "invoice data details page");
+
   const invoice = invoiceData.find(
-    (invoice: InvoiceProps) => invoice._id.toString() === _id.toString()
+    (invoice: InvoiceProps) => invoice._id?.toString() === _id.toString()
   );
 
   if (!invoice) {
@@ -170,7 +171,7 @@ const InvoiceDetailPage = async ({ params }: InvoiceDetailPageProps) => {
               {invoice.items.map((item: ItemsProps) => (
                 <div
                   className="flex items-center justify-between pb-8 md:pb-10"
-                  key={item.name}
+                  key={item.itemName}
                 >
                   {/* name */}
                   <div className="md:w-[40%]">
@@ -178,7 +179,7 @@ const InvoiceDetailPage = async ({ params }: InvoiceDetailPageProps) => {
                       item name
                     </p>
                     <p className="hs-bold-variant text-dark-100_light-100 pb-2">
-                      {item.name}
+                      {item.itemName}
                     </p>
                     <p className="md:hidden hs-bold-variant text-muted-blues-300_muted-blues-100">{`${item.quantity} x £ ${item.price}`}</p>
                   </div>

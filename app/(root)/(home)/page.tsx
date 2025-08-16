@@ -114,7 +114,7 @@ export default async function Home() {
       <div className="flex flex-col gap-4 py-8 md:py-16 lg:py-[70px]">
         {invoiceData && invoiceData.length > 0 ? (
           invoiceData.map((invoice: InvoiceProps) => (
-            <InvoiceCard key={invoice._id.toString()} invoice={invoice} />
+            <InvoiceCard key={invoice._id?.toString()} invoice={invoice} />
           ))
         ) : (
           <EmptyInvoice />

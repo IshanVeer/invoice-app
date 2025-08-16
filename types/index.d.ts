@@ -11,15 +11,15 @@ export interface ClientInterfaceProps {
   country: string;
 }
 export interface ItemsProps {
-  name: string;
+  itemName: string;
   quantity: number;
   price: number;
   total: number;
 }
 export interface InvoiceProps {
-  _id: string;
-  createdAt: string;
-  paymentDue: string;
+  _id?: string;
+  createdAt: Date;
+  paymentDue: Date;
   description: string;
   paymentTerms: number;
   clientName: string;

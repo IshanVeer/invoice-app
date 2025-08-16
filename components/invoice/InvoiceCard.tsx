@@ -10,7 +10,7 @@ const InvoiceCard = ({ invoice }: InvoiceDataProps) => {
       <div className="bg-light-100_dark-300 p-6 shadow-[0px_10px_10px_rgba(72,84,159,0.1)] rounded-[8px] grid grid-cols-2 md:flex md:items-center md:justify-between gap-y-5">
         <p className="hs-bold-variant uppercase break-words whitespace-normal order-1 mb-2.5 md:mb-0">
           <span className="text-muted-blues-300">#</span>
-          {invoice._id.toString()}
+          {invoice._id?.toString()}
         </p>
         <p className="text-muted-blues-400 body-variant order-2 md:order-3 max-md:justify-self-end">
           {invoice.clientName}
