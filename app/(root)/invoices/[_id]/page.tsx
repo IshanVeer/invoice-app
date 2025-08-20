@@ -27,8 +27,6 @@ const InvoiceDetailPage = async ({ params }: InvoiceDetailPageProps) => {
   const invoicesResult = await getInvoices({ clerkId: userId });
   const invoiceData = invoicesResult.invoices;
 
-  console.log(invoiceData, "invoice data details page");
-
   const invoice = invoiceData.find(
     (invoice: InvoiceProps) => invoice._id?.toString() === _id.toString()
   );

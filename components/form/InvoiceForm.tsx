@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import { format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
@@ -17,6 +18,7 @@ import {
 import Image from "next/image";
 
 import CustomButton from "../ui/CustomButton";
+import { createInvoice } from "@/lib/actions/user.action";
 
 const InvoiceForm = () => {
   const [date, setDate] = useState<Date | undefined>(new Date());
@@ -33,6 +35,7 @@ const InvoiceForm = () => {
     clientCountry: "",
     projectDescription: "",
   });
+  const [paymentTerms, setPaymentTerms] = useState(7);
   const [items, setItems] = useState([
     { itemName: "", quantity: 0, price: 0, total: 0 },
   ]);
@@ -97,8 +100,50 @@ const InvoiceForm = () => {
   };
 
   // handle form submission
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    console.log("form submitting");
+
+    if (!date) return;
+    console.log("form still submitting");
+
+    const paymentDue = new Date(date);
+    paymentDue.setDate(paymentDue.getDate() + paymentTerms);
+    console.log("form still submitting 2");
+    try {
+      const result = await createInvoice({
+        createdAt: date,
+        paymentDue: paymentDue,
+        description: formData.projectDescription,
+        paymentTerms: paymentTerms,
+        clientName: formData.clientName,
+        clientEmail: formData.clientEmail,
+        status: "draft",
+        senderAddress: {
+          street: formData.sendersStreetAddress,
+          city: formData.clientStreetAddress,
+          postCode: formData.sendersPostcode,
+          country: formData.sendersCountry,
+        },
+        clientAddress: {
+          street: formData.clientStreetAddress,
+          city: formData.clientCity,
+          postCode: formData.clientPostcode,
+          country: formData.clientCountry,
+        },
+        items: items,
+        total: items.reduce((acc, item) => acc + item.total, 0),
+      });
+      if (!result) {
+        console.log("form submission failed");
+      } else {
+        console.log("form submitted");
+      }
+    } catch (error) {
+      console.log("error in submitting form", error);
+      throw error;
+    }
   };
   return (
     <form onSubmit={handleFormSubmit} className="relative">
@@ -325,7 +370,9 @@ const InvoiceForm = () => {
             </p>
             <DropdownMenu>
               <DropdownMenuTrigger className="w-full hover:cursor-pointer flex items-center justify-between border border-muted-blues-100 dark:border-dark-400 outline-0 hs-bold-variant text-dark-100_light-100 px-5 py-5 rounded-[4px] bg-light-100_dark-300">
-                <p>Net 30 Days</p>
+                <p>{`Net ${paymentTerms} ${
+                  paymentTerms === 1 ? "Day" : "Days"
+                }`}</p>
                 <Image
                   src="/assets/icon-arrow-down.svg"
                   alt="payment-terms"
@@ -339,6 +386,7 @@ const InvoiceForm = () => {
               >
                 {paymentTermsData.map((payment) => (
                   <DropdownMenuItem
+                    onSelect={() => setPaymentTerms(payment.value)}
                     className="hover:bg-transparent focus:bg-transparent data-[highlighted]:bg-transparent hover:text-primary-500 hover:cursor-pointer py-3"
                     key={payment.value}
                   >

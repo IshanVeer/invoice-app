@@ -4,6 +4,7 @@ import User from "@/database/users.model";
 import { UserParams } from "./shared.types";
 import { connectToDatabase } from "../mongoose";
 import Invoice from "@/database/invoices.model";
+import { InvoiceProps } from "@/types";
 
 // create user
 
@@ -36,6 +37,45 @@ export const getInvoices = async (params: UserParams) => {
     return { invoices: invoices };
   } catch (error) {
     console.log(error);
+    throw error;
+  }
+};
+
+// create invoice
+
+export const createInvoice = async (params: InvoiceProps) => {
+  const {
+    createdAt,
+    paymentDue,
+    description,
+    paymentTerms,
+    clientName,
+    clientEmail,
+    status,
+    senderAddress,
+    clientAddress,
+    items,
+    total,
+  } = params;
+  try {
+    await connectToDatabase();
+    const {} = params;
+    const invoice = await Invoice.create({
+      createdAt,
+      paymentDue,
+      description,
+      paymentTerms,
+      clientName,
+      clientEmail,
+      status,
+      senderAddress,
+      clientAddress,
+      items,
+      total,
+    });
+    return { invoices: JSON.parse(JSON.stringify(invoice)) };
+  } catch (error) {
+    console.log("server action error", error);
     throw error;
   }
 };
