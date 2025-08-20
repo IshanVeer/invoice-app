@@ -43,8 +43,11 @@ export const getInvoices = async (params: UserParams) => {
 
 // create invoice
 
-export const createInvoice = async (params: InvoiceProps) => {
+export const createInvoice = async (
+  params: InvoiceProps & { clerkId: string }
+) => {
   const {
+    clerkId,
     createdAt,
     paymentDue,
     description,
@@ -59,7 +62,7 @@ export const createInvoice = async (params: InvoiceProps) => {
   } = params;
   try {
     await connectToDatabase();
-    const {} = params;
+
     const invoice = await Invoice.create({
       createdAt,
       paymentDue,
@@ -73,7 +76,14 @@ export const createInvoice = async (params: InvoiceProps) => {
       items,
       total,
     });
-    return { invoices: JSON.parse(JSON.stringify(invoice)) };
+
+    const updatedUser = await User.findOneAndUpdate(
+      { clerkId },
+      { $push: { invoices: invoice._id } },
+      { new: true }
+    ).populate("invoices");
+
+    return { invoices: JSON.parse(JSON.stringify(updatedUser.invoices)) };
   } catch (error) {
     console.log("server action error", error);
     throw error;

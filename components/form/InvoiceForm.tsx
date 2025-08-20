@@ -19,9 +19,12 @@ import Image from "next/image";
 
 import CustomButton from "../ui/CustomButton";
 import { createInvoice } from "@/lib/actions/user.action";
+import { useAuth } from "@clerk/nextjs";
 
 const InvoiceForm = () => {
   const [date, setDate] = useState<Date | undefined>(new Date());
+  const { userId } = useAuth();
+  console.log(userId, " user id in invoice form");
   const [formData, setFormData] = useState({
     sendersStreetAddress: "",
     sendersCity: "",
@@ -105,7 +108,7 @@ const InvoiceForm = () => {
 
     console.log("form submitting");
 
-    if (!date) return;
+    if (!date || !userId) return;
     console.log("form still submitting");
 
     const paymentDue = new Date(date);
@@ -113,6 +116,7 @@ const InvoiceForm = () => {
     console.log("form still submitting 2");
     try {
       const result = await createInvoice({
+        clerkId: userId,
         createdAt: date,
         paymentDue: paymentDue,
         description: formData.projectDescription,
