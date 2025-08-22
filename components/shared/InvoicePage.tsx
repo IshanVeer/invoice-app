@@ -7,21 +7,30 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import React from "react";
+import React, { useState } from "react";
 import EmptyInvoice from "../invoice/EmptyInvoice";
 import InvoiceCard from "../invoice/InvoiceCard";
 import CustomButton from "../ui/CustomButton";
+import FormSheet from "./FormSheet";
 
 interface Props {
   invoiceData: InvoiceProps[];
 }
 
 const InvoicePage = ({ invoiceData }: Props) => {
-  console.log(invoiceData, "invoice data");
+  const [openInvoiceForm, setOpenInvoiceForm] = useState<null | {
+    mode: "create" | "edit";
+    invoices?: InvoiceProps;
+  }>(null);
+
+  const handleOpenCreateInvoiceForm = () => {
+    setOpenInvoiceForm({ mode: "create" });
+  };
+
   return (
     <div className="container">
       {/* sheet component */}
-      {/* <FormSheet /> */}
+      {openInvoiceForm?.mode === "create" && <FormSheet />}
       {/* heading */}
       <div className="flex justify-between items-center w-full">
         <div className="">
@@ -104,11 +113,15 @@ const InvoicePage = ({ invoiceData }: Props) => {
               className="md:hidden"
               label="new"
               buttonStyle="button-1"
+              handleOpenCreateInvoiceForm={handleOpenCreateInvoiceForm}
+              action="create-invoice"
             />
             <CustomButton
               className="max-md:hidden"
               label="new invoice"
               buttonStyle="button-1"
+              handleOpenCreateInvoiceForm={handleOpenCreateInvoiceForm}
+              action="create-invoice"
             />
           </div>
         </div>

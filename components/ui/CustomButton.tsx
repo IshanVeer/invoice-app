@@ -5,6 +5,7 @@ import Image from "next/image";
 interface Buttonprops {
   label: string;
   addItemHandler?: () => void;
+  handleOpenCreateInvoiceForm?: () => void;
   action?: string;
   buttonType?: "button" | "reset" | "submit";
   className?: string;
@@ -24,11 +25,14 @@ const CustomButton = ({
   buttonType,
   action,
   addItemHandler,
+  handleOpenCreateInvoiceForm,
 }: Buttonprops) => {
   const clickHandler = () => {
     switch (action) {
       case "add-item":
         return addItemHandler?.();
+      case "create-invoice":
+        return handleOpenCreateInvoiceForm?.();
     }
   };
   return (
