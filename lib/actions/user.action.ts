@@ -34,7 +34,7 @@ export const getInvoices = async (params: UserParams) => {
     });
 
     const invoices = user.invoices;
-    return { invoices: invoices };
+    return { invoices: JSON.parse(JSON.stringify(invoices)) };
   } catch (error) {
     console.log(error);
     throw error;

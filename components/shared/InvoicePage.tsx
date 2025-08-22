@@ -1,3 +1,4 @@
+"use client";
 import { InvoiceProps } from "@/types";
 import Image from "next/image";
 import {
