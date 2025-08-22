@@ -12,21 +12,14 @@ import EmptyInvoice from "../invoice/EmptyInvoice";
 import InvoiceCard from "../invoice/InvoiceCard";
 import CustomButton from "../ui/CustomButton";
 import FormSheet from "./FormSheet";
+import { useInvoiceForm } from "@/context/InvoiceProvider";
 
 interface Props {
   invoiceData: InvoiceProps[];
 }
 
 const InvoicePage = ({ invoiceData }: Props) => {
-  const [openInvoiceForm, setOpenInvoiceForm] = useState<null | {
-    mode: "create" | "edit";
-    invoices?: InvoiceProps;
-  }>(null);
-
-  const handleOpenCreateInvoiceForm = () => {
-    setOpenInvoiceForm({ mode: "create" });
-  };
-
+  const { openInvoiceForm, handleOpenCreateInvoiceForm } = useInvoiceForm();
   return (
     <div className="container">
       {/* sheet component */}

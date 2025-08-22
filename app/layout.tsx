@@ -4,6 +4,7 @@ import "./globals.css";
 import ThemeProvider from "@/context/ThemeProvider";
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
+import InvoiceProvider from "@/context/InvoiceProvider";
 
 const leagueSpartan = League_Spartan({
   variable: "--font-league-spartan",
@@ -30,7 +31,10 @@ export default function RootLayout({
             baseTheme: dark,
           }}
         >
-          <ThemeProvider>{children}</ThemeProvider>
+          <ThemeProvider>
+            {" "}
+            <InvoiceProvider>{children}</InvoiceProvider>{" "}
+          </ThemeProvider>
         </ClerkProvider>
       </body>
     </html>
