@@ -113,9 +113,30 @@ export const editInvoice = async (params: {
 export const deleteInvoice = async (params: {
   invoiceId: string | undefined;
 }) => {
+  connectToDatabase();
   const { invoiceId } = params;
   try {
     const updatedInvoice = await Invoice.findByIdAndDelete(invoiceId);
+    return { invoices: JSON.parse(JSON.stringify(updatedInvoice)) };
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const markInvoiceAsPaid = async (params: {
+  invoiceId: string | undefined;
+}) => {
+  try {
+    connectToDatabase();
+
+    const { invoiceId } = params;
+
+    const updatedInvoice = await Invoice.findByIdAndUpdate(
+      invoiceId,
+      { status: "paid" },
+      { new: true }
+    );
+
     return { invoices: JSON.parse(JSON.stringify(updatedInvoice)) };
   } catch (error) {
     console.log(error);

@@ -7,7 +7,7 @@ import CustomButton from "../ui/CustomButton";
 import Image from "next/image";
 import { useInvoiceForm } from "@/context/InvoiceProvider";
 import FormSheet from "./FormSheet";
-import { deleteInvoice } from "@/lib/actions/user.action";
+import { deleteInvoice, markInvoiceAsPaid } from "@/lib/actions/user.action";
 import { useRouter } from "next/navigation";
 
 interface InvoiceDetailProps {
@@ -25,6 +25,11 @@ const InvoiceDetail = ({ invoice }: InvoiceDetailProps) => {
   const handleDeleteInvoice = async () => {
     await deleteInvoice({ invoiceId: invoice._id });
     router.push("/");
+  };
+
+  const handleMarkInvoiceAsPaid = async () => {
+    await markInvoiceAsPaid({ invoiceId: invoice._id });
+    router.refresh();
   };
   return (
     <>
@@ -92,7 +97,12 @@ const InvoiceDetail = ({ invoice }: InvoiceDetailProps) => {
               label="delete"
             />
             {invoice.status === "pending" && (
-              <CustomButton buttonStyle="button-2" label="mark as paid" />
+              <CustomButton
+                action="mark-as-paid"
+                handleMarkInvoiceAsPaid={handleMarkInvoiceAsPaid}
+                buttonStyle="button-2"
+                label="mark as paid"
+              />
             )}
           </div>
         </div>
