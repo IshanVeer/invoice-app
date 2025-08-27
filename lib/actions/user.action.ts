@@ -70,7 +70,7 @@ export const createInvoice = async (
       paymentTerms,
       clientName,
       clientEmail,
-      status,
+      status: "pending",
       senderAddress,
       clientAddress,
       items,
