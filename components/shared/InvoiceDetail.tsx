@@ -20,7 +20,9 @@ const InvoiceDetail = ({ invoice }: InvoiceDetailProps) => {
   );
   return (
     <>
-      {openInvoiceForm?.mode === "edit" && <FormSheet />}
+      {openInvoiceForm?.mode === "edit" && (
+        <FormSheet invoice={invoice} mode="edit" />
+      )}
       <div className="container relative pb-28">
         <Link
           className="flex items-center gap-4 hs-bold-variant text-dark-100_light-100 mb-8"

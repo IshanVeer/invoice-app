@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 
@@ -18,10 +18,16 @@ import {
 import Image from "next/image";
 
 import CustomButton from "../ui/CustomButton";
-import { createInvoice } from "@/lib/actions/user.action";
+import { createInvoice, editInvoice } from "@/lib/actions/user.action";
 import { useAuth } from "@clerk/nextjs";
+import { InvoiceProps } from "@/types";
 
-const InvoiceForm = () => {
+interface InvoiceFormProps {
+  mode?: "edit";
+  invoice?: InvoiceProps;
+}
+
+const InvoiceForm = ({ mode, invoice }: InvoiceFormProps) => {
   const [date, setDate] = useState<Date | undefined>(new Date());
   const { userId } = useAuth();
   console.log(userId, " user id in invoice form");
@@ -48,6 +54,26 @@ const InvoiceForm = () => {
     { label: "Net 14 days", value: 14 },
     { label: "Net 30 days", value: 30 },
   ];
+  useEffect(() => {
+    if (mode === "edit" && invoice) {
+      setFormData({
+        sendersStreetAddress: invoice.senderAddress.street || "",
+        sendersCity: invoice.senderAddress.city || "",
+        sendersPostcode: invoice.senderAddress.postCode || "",
+        sendersCountry: invoice.senderAddress.country || "",
+        clientName: invoice.clientName || "",
+        clientEmail: invoice.clientEmail || "",
+        clientStreetAddress: invoice.clientAddress.street || "",
+        clientCity: invoice.clientAddress.city || "",
+        clientPostcode: invoice.clientAddress.postCode || "",
+        clientCountry: invoice.clientAddress.country || "",
+        projectDescription: invoice.description || "",
+      });
+      setPaymentTerms(invoice.paymentTerms);
+      setItems(invoice.items);
+      setDate(invoice.createdAt);
+    }
+  }, [mode, invoice]);
 
   // handle form input
   const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -102,43 +128,58 @@ const InvoiceForm = () => {
     setItems(updatedItems);
   };
 
+  const buildInvoicePayload = () => {
+    if (!date || !userId) return;
+
+    const paymentDue = new Date(date);
+    paymentDue.setDate(paymentDue.getDate() + paymentTerms);
+
+    return {
+      clerkId: userId,
+      createdAt: date,
+      paymentDue: paymentDue,
+      description: formData.projectDescription,
+      paymentTerms: paymentTerms,
+      clientName: formData.clientName,
+      clientEmail: formData.clientEmail,
+      status: "draft",
+      senderAddress: {
+        street: formData.sendersStreetAddress,
+        city: formData.clientStreetAddress,
+        postCode: formData.sendersPostcode,
+        country: formData.sendersCountry,
+      },
+      clientAddress: {
+        street: formData.clientStreetAddress,
+        city: formData.clientCity,
+        postCode: formData.clientPostcode,
+        country: formData.clientCountry,
+      },
+      items: items,
+      total: items.reduce((acc, item) => acc + item.total, 0),
+    };
+  };
+
   // handle form submission
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     console.log("form submitting");
 
-    if (!date || !userId) return;
-    console.log("form still submitting");
-
-    const paymentDue = new Date(date);
-    paymentDue.setDate(paymentDue.getDate() + paymentTerms);
-    console.log("form still submitting 2");
     try {
-      const result = await createInvoice({
-        clerkId: userId,
-        createdAt: date,
-        paymentDue: paymentDue,
-        description: formData.projectDescription,
-        paymentTerms: paymentTerms,
-        clientName: formData.clientName,
-        clientEmail: formData.clientEmail,
-        status: "draft",
-        senderAddress: {
-          street: formData.sendersStreetAddress,
-          city: formData.clientStreetAddress,
-          postCode: formData.sendersPostcode,
-          country: formData.sendersCountry,
-        },
-        clientAddress: {
-          street: formData.clientStreetAddress,
-          city: formData.clientCity,
-          postCode: formData.clientPostcode,
-          country: formData.clientCountry,
-        },
-        items: items,
-        total: items.reduce((acc, item) => acc + item.total, 0),
-      });
+      const payload = buildInvoicePayload();
+
+      if (!payload) {
+        return;
+      }
+
+      const result =
+        mode === "edit"
+          ? await editInvoice({
+              invoiceId: invoice?._id,
+              updatedInvoiceData: payload,
+            })
+          : await createInvoice(payload);
       if (!result) {
         console.log("form submission failed");
       } else {
@@ -151,7 +192,14 @@ const InvoiceForm = () => {
   };
   return (
     <form onSubmit={handleFormSubmit} className="relative">
-      <h2 className="hm-bold mb-10">New Invoice</h2>
+      {mode === "edit" ? (
+        <h2 className="hm-bold mb-10">
+          <span className="mr-2">Edit </span> # {invoice?._id}
+        </h2>
+      ) : (
+        <h2 className="hm-bold mb-10">New Invoice</h2>
+      )}
+
       {/* bill from */}
       <div className="flex flex-col gap-7">
         <h3 className="hs-bold-variant text-primary-500 mb-3">Bill From</h3>
@@ -520,7 +568,7 @@ const InvoiceForm = () => {
           <CustomButton
             buttonType="submit"
             buttonStyle="button-2"
-            label="Save & Send"
+            label={mode === "edit" ? "Save Changes" : "Save & Send"}
           />
         </div>
       </div>

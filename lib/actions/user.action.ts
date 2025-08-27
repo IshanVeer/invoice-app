@@ -89,3 +89,23 @@ export const createInvoice = async (
     throw error;
   }
 };
+
+// edit invoice
+
+export const editInvoice = async (params: {
+  invoiceId: string | undefined;
+  updatedInvoiceData: InvoiceProps;
+}) => {
+  try {
+    connectToDatabase();
+    const { invoiceId, updatedInvoiceData } = params;
+    const updatedInvoice = await Invoice.findByIdAndUpdate(
+      invoiceId,
+      updatedInvoiceData,
+      { new: true }
+    );
+    return { invoices: JSON.parse(JSON.stringify(updatedInvoice)) };
+  } catch (error) {
+    console.log(error, "error in submitting form");
+  }
+};
