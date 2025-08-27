@@ -29,12 +29,14 @@ const InvoiceProvider = ({ children }: { children: React.ReactNode }) => {
   const handleOpenCreateInvoiceForm = () => {
     setOpenInvoiceForm({ mode: "create" });
   };
+
   const handleOpenEditInvoiceForm = () => {
     setOpenInvoiceForm({ mode: "edit" });
   };
 
   const value = {
     openInvoiceForm,
+
     setOpenInvoiceForm,
     handleOpenCreateInvoiceForm,
     handleOpenEditInvoiceForm,

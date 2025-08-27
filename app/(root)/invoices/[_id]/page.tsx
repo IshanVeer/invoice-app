@@ -1,6 +1,6 @@
 import InvoiceDetail from "@/components/shared/InvoiceDetail";
 
-import { getInvoices } from "@/lib/actions/user.action";
+import { deleteInvoice, getInvoices } from "@/lib/actions/user.action";
 
 import { InvoiceProps } from "@/types";
 import { auth } from "@clerk/nextjs/server";

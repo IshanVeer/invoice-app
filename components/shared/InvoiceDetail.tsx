@@ -7,6 +7,8 @@ import CustomButton from "../ui/CustomButton";
 import Image from "next/image";
 import { useInvoiceForm } from "@/context/InvoiceProvider";
 import FormSheet from "./FormSheet";
+import { deleteInvoice } from "@/lib/actions/user.action";
+import { useRouter } from "next/navigation";
 
 interface InvoiceDetailProps {
   invoice: InvoiceProps;
@@ -14,10 +16,16 @@ interface InvoiceDetailProps {
 
 const InvoiceDetail = ({ invoice }: InvoiceDetailProps) => {
   const { openInvoiceForm, handleOpenEditInvoiceForm } = useInvoiceForm();
+  const router = useRouter();
   const grandTotal = invoice.items.reduce(
     (acc: number, item: ItemsProps) => acc + item.price * item.quantity,
     0
   );
+
+  const handleDeleteInvoice = async () => {
+    await deleteInvoice({ invoiceId: invoice._id });
+    router.push("/");
+  };
   return (
     <>
       {openInvoiceForm?.mode === "edit" && (
@@ -77,7 +85,12 @@ const InvoiceDetail = ({ invoice }: InvoiceDetailProps) => {
               action="edit-invoice"
               handleOpenEditInvoiceForm={handleOpenEditInvoiceForm}
             />
-            <CustomButton buttonStyle="button-5" label="delete" />
+            <CustomButton
+              action="delete-invoice"
+              handleDeleteInvoice={handleDeleteInvoice}
+              buttonStyle="button-5"
+              label="delete"
+            />
             {invoice.status === "pending" && (
               <CustomButton buttonStyle="button-2" label="mark as paid" />
             )}

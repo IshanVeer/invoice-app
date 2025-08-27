@@ -21,6 +21,8 @@ import CustomButton from "../ui/CustomButton";
 import { createInvoice, editInvoice } from "@/lib/actions/user.action";
 import { useAuth } from "@clerk/nextjs";
 import { InvoiceProps } from "@/types";
+import { useInvoiceForm } from "@/context/InvoiceProvider";
+import { useRouter } from "next/navigation";
 
 interface InvoiceFormProps {
   mode?: "edit";
@@ -30,6 +32,8 @@ interface InvoiceFormProps {
 const InvoiceForm = ({ mode, invoice }: InvoiceFormProps) => {
   const [date, setDate] = useState<Date | undefined>(new Date());
   const { userId } = useAuth();
+  const { setOpenInvoiceForm } = useInvoiceForm();
+  const router = useRouter();
   console.log(userId, " user id in invoice form");
   const [formData, setFormData] = useState({
     sendersStreetAddress: "",
@@ -189,6 +193,9 @@ const InvoiceForm = ({ mode, invoice }: InvoiceFormProps) => {
       console.log("error in submitting form", error);
       throw error;
     }
+
+    setOpenInvoiceForm(null);
+    router.refresh();
   };
   return (
     <form onSubmit={handleFormSubmit} className="relative">

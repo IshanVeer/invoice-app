@@ -109,3 +109,15 @@ export const editInvoice = async (params: {
     console.log(error, "error in submitting form");
   }
 };
+
+export const deleteInvoice = async (params: {
+  invoiceId: string | undefined;
+}) => {
+  const { invoiceId } = params;
+  try {
+    const updatedInvoice = await Invoice.findByIdAndDelete(invoiceId);
+    return { invoices: JSON.parse(JSON.stringify(updatedInvoice)) };
+  } catch (error) {
+    console.log(error);
+  }
+};
