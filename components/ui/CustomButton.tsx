@@ -9,6 +9,7 @@ interface Buttonprops {
   handleOpenEditInvoiceForm?: () => void;
   handleDeleteInvoice?: () => void;
   handleMarkInvoiceAsPaid?: () => void;
+  setIsDraft?: () => void;
   action?: string;
   buttonType?: "button" | "reset" | "submit";
   className?: string;
@@ -32,8 +33,12 @@ const CustomButton = ({
   handleOpenEditInvoiceForm,
   handleDeleteInvoice,
   handleMarkInvoiceAsPaid,
+  setIsDraft,
 }: Buttonprops) => {
   const clickHandler = () => {
+    if (setIsDraft) {
+      setIsDraft();
+    }
     switch (action) {
       case "add-item":
         return addItemHandler?.();

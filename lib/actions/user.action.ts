@@ -44,7 +44,7 @@ export const getInvoices = async (params: UserParams) => {
 // create invoice
 
 export const createInvoice = async (
-  params: InvoiceProps & { clerkId: string }
+  params: InvoiceProps & { clerkId: string; isDraft: boolean }
 ) => {
   const {
     clerkId,
@@ -54,14 +54,28 @@ export const createInvoice = async (
     paymentTerms,
     clientName,
     clientEmail,
-    status,
     senderAddress,
     clientAddress,
     items,
     total,
+    isDraft,
   } = params;
   try {
     await connectToDatabase();
+
+    if (!isDraft) {
+      if (
+        !description ||
+        !paymentTerms ||
+        !clientName ||
+        !clientEmail ||
+        !senderAddress ||
+        !clientAddress ||
+        !items?.length
+      ) {
+        throw new Error("All fields are required when creating an invoice");
+      }
+    }
 
     const invoice = await Invoice.create({
       createdAt,
@@ -70,7 +84,7 @@ export const createInvoice = async (
       paymentTerms,
       clientName,
       clientEmail,
-      status: "pending",
+      status: isDraft ? "draft" : "pending",
       senderAddress,
       clientAddress,
       items,

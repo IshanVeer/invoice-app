@@ -62,6 +62,7 @@ const InvoiceForm = ({ mode, invoice }: InvoiceFormProps) => {
   ]);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const [isDraft, setIsDraft] = useState(false);
 
   useEffect(() => {
     if (mode === "edit" && invoice) {
@@ -132,7 +133,7 @@ const InvoiceForm = ({ mode, invoice }: InvoiceFormProps) => {
         return "";
 
       case "projectDescription":
-        if (!value.trim()) return "Project description is not required";
+        if (!value.trim()) return "Project description is required";
         if (value.trim().length < 5)
           return " Project description must be atleast 5 characters";
         return "";
@@ -370,7 +371,7 @@ const InvoiceForm = ({ mode, invoice }: InvoiceFormProps) => {
       status: "draft",
       senderAddress: {
         street: formData.sendersStreetAddress,
-        city: formData.clientStreetAddress,
+        city: formData.sendersCity,
         postCode: formData.sendersPostcode,
         country: formData.sendersCountry,
       },
@@ -382,6 +383,7 @@ const InvoiceForm = ({ mode, invoice }: InvoiceFormProps) => {
       },
       items: items,
       total: items.reduce((acc, item) => acc + item.total, 0),
+      isDraft: isDraft,
     };
   };
 
@@ -417,11 +419,13 @@ const InvoiceForm = ({ mode, invoice }: InvoiceFormProps) => {
 
     setTouched(newTouched);
 
-    const isFormValid = validateForm();
+    if (!isDraft) {
+      const isFormValid = validateForm();
 
-    if (!isFormValid) {
-      console.log("Form inputs have error");
-      return;
+      if (!isFormValid) {
+        console.log("Form inputs have error");
+        return;
+      }
     }
 
     try {
@@ -900,10 +904,16 @@ const InvoiceForm = ({ mode, invoice }: InvoiceFormProps) => {
       <div className=" w-full py-6  flex items-center justify-between sticky bottom-0 bg-light-100_dark-200">
         <CustomButton buttonStyle="button-3" label="Discard" />
         <div className="flex gap-3">
-          <CustomButton buttonStyle="button-4" label="Save as Draft" />
+          <CustomButton
+            buttonType="submit"
+            buttonStyle="button-4"
+            setIsDraft={() => setIsDraft(true)}
+            label="Save as Draft"
+          />
           <CustomButton
             buttonType="submit"
             buttonStyle="button-2"
+            setIsDraft={() => setIsDraft(false)}
             label={mode === "edit" ? "Save Changes" : "Save & Send"}
           />
         </div>
