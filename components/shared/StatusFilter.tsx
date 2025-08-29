@@ -6,7 +6,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import React, { useState } from "react";
+import React from "react";
 import { useInvoiceForm } from "@/context/InvoiceProvider";
 
 const StatusFilter = () => {
