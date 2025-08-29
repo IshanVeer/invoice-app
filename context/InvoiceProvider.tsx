@@ -9,12 +9,14 @@ interface InvoiceFormState {
 
 interface InvoiceContextProps {
   openInvoiceForm: InvoiceFormState | null;
+  selectedStatuses: string[];
   setOpenInvoiceForm: React.Dispatch<
     React.SetStateAction<InvoiceFormState | null>
   >;
   handleOpenCreateInvoiceForm: () => void;
   handleOpenEditInvoiceForm: () => void;
   handleCloseInvoiceForm: () => void;
+  handleCheckboxChange: (value: string) => void;
 }
 
 const InvoiceContext = createContext<undefined | InvoiceContextProps>(
@@ -26,6 +28,8 @@ const InvoiceProvider = ({ children }: { children: React.ReactNode }) => {
     mode: "create" | "edit";
     invoices?: InvoiceProps;
   }>(null);
+
+  const [selectedStatuses, setSelectedStatuses] = useState<string[]>([]);
 
   const handleOpenCreateInvoiceForm = () => {
     setOpenInvoiceForm({ mode: "create" });
@@ -39,12 +43,20 @@ const InvoiceProvider = ({ children }: { children: React.ReactNode }) => {
     setOpenInvoiceForm(null);
   };
 
+  const handleCheckboxChange = (value: string) => {
+    setSelectedStatuses((prev) =>
+      prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
+    );
+  };
+
   const value = {
     openInvoiceForm,
     handleCloseInvoiceForm,
     setOpenInvoiceForm,
     handleOpenCreateInvoiceForm,
     handleOpenEditInvoiceForm,
+    selectedStatuses,
+    handleCheckboxChange,
   };
   return (
     <InvoiceContext.Provider value={value}>{children}</InvoiceContext.Provider>
