@@ -8,6 +8,7 @@ import CustomButton from "../ui/CustomButton";
 import FormSheet from "./FormSheet";
 import { useInvoiceForm } from "@/context/InvoiceProvider";
 import StatusFilter from "./StatusFilter";
+import { AnimatePresence, easeOut, motion } from "motion/react";
 
 interface Props {
   invoiceData: InvoiceProps[];
@@ -27,7 +28,10 @@ const InvoicePage = ({ invoiceData }: Props) => {
   return (
     <div className="container">
       {/* sheet component */}
-      {openInvoiceForm?.mode === "create" && <FormSheet />}
+      <AnimatePresence>
+        {openInvoiceForm?.mode === "create" && <FormSheet />}
+      </AnimatePresence>
+
       {/* heading */}
       <div className="flex justify-between items-center w-full">
         <div className="">
@@ -60,7 +64,12 @@ const InvoicePage = ({ invoiceData }: Props) => {
         </div>
       </div>
       {/* invoice list */}
-      <div className="flex flex-col gap-4 py-8 md:py-16 lg:py-[70px]">
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: easeOut }}
+        className="flex flex-col gap-4 py-8 md:py-16 lg:py-[70px]"
+      >
         {filteredInvoices && filteredInvoices.length > 0 ? (
           filteredInvoices.map((invoice: InvoiceProps) => (
             <InvoiceCard key={invoice._id?.toString()} invoice={invoice} />
@@ -68,7 +77,7 @@ const InvoicePage = ({ invoiceData }: Props) => {
         ) : (
           <EmptyInvoice />
         )}
-      </div>
+      </motion.div>
     </div>
   );
 };

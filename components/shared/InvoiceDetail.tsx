@@ -9,6 +9,7 @@ import { useInvoiceForm } from "@/context/InvoiceProvider";
 import FormSheet from "./FormSheet";
 import { deleteInvoice, markInvoiceAsPaid } from "@/lib/actions/user.action";
 import { useRouter } from "next/navigation";
+import { AnimatePresence, easeOut, motion } from "motion/react";
 
 interface InvoiceDetailProps {
   invoice: InvoiceProps;
@@ -33,10 +34,18 @@ const InvoiceDetail = ({ invoice }: InvoiceDetailProps) => {
   };
   return (
     <>
-      {openInvoiceForm?.mode === "edit" && (
-        <FormSheet invoice={invoice} mode="edit" />
-      )}
-      <div className="container relative pb-28">
+      <AnimatePresence>
+        {openInvoiceForm?.mode === "edit" && (
+          <FormSheet invoice={invoice} mode="edit" />
+        )}
+      </AnimatePresence>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: easeOut }}
+        className="container relative pb-28"
+      >
         <Link
           className="flex items-center gap-4 hs-bold-variant text-dark-100_light-100 mb-8"
           href="/"
@@ -230,7 +239,7 @@ const InvoiceDetail = ({ invoice }: InvoiceDetailProps) => {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
       {/* edit/delete options for mobile */}
       <div className="md:hidden py-3.5 px-6 w-full flex items-center justify-between  bg-light-100_dark-300 fixed bottom-0">
         <CustomButton buttonStyle="button-3" label="edit" />
