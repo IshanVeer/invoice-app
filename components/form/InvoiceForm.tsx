@@ -31,7 +31,7 @@ interface InvoiceFormProps {
 
 const InvoiceForm = ({ mode, invoice }: InvoiceFormProps) => {
   const { userId } = useAuth();
-  const { setOpenInvoiceForm } = useInvoiceForm();
+  const { setOpenInvoiceForm, handleCloseInvoiceForm } = useInvoiceForm();
   const router = useRouter();
 
   const paymentTermsData = [
@@ -902,7 +902,12 @@ const InvoiceForm = ({ mode, invoice }: InvoiceFormProps) => {
       </div>
       {/* edit/delete options for mobile */}
       <div className=" w-full py-6  flex items-center justify-between sticky bottom-0 bg-light-100_dark-200">
-        <CustomButton buttonStyle="button-3" label="Discard" />
+        <CustomButton
+          action="close-form"
+          handleCloseInvoiceForm={handleCloseInvoiceForm}
+          buttonStyle="button-3"
+          label="Discard"
+        />
         <div className="flex gap-3">
           <CustomButton
             buttonType="submit"

@@ -14,6 +14,7 @@ interface InvoiceContextProps {
   >;
   handleOpenCreateInvoiceForm: () => void;
   handleOpenEditInvoiceForm: () => void;
+  handleCloseInvoiceForm: () => void;
 }
 
 const InvoiceContext = createContext<undefined | InvoiceContextProps>(
@@ -34,9 +35,13 @@ const InvoiceProvider = ({ children }: { children: React.ReactNode }) => {
     setOpenInvoiceForm({ mode: "edit" });
   };
 
+  const handleCloseInvoiceForm = () => {
+    setOpenInvoiceForm(null);
+  };
+
   const value = {
     openInvoiceForm,
-
+    handleCloseInvoiceForm,
     setOpenInvoiceForm,
     handleOpenCreateInvoiceForm,
     handleOpenEditInvoiceForm,

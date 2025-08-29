@@ -10,6 +10,7 @@ interface Buttonprops {
   handleDeleteInvoice?: () => void;
   handleMarkInvoiceAsPaid?: () => void;
   setIsDraft?: () => void;
+  handleCloseInvoiceForm?: () => void;
   action?: string;
   buttonType?: "button" | "reset" | "submit";
   className?: string;
@@ -33,6 +34,7 @@ const CustomButton = ({
   handleOpenEditInvoiceForm,
   handleDeleteInvoice,
   handleMarkInvoiceAsPaid,
+  handleCloseInvoiceForm,
   setIsDraft,
 }: Buttonprops) => {
   const clickHandler = () => {
@@ -50,6 +52,9 @@ const CustomButton = ({
         return handleDeleteInvoice?.();
       case "mark-as-paid":
         return handleMarkInvoiceAsPaid?.();
+
+      case "close-form":
+        return handleCloseInvoiceForm?.();
     }
   };
   return (
