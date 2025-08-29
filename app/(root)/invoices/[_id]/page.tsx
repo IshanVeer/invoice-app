@@ -8,14 +8,12 @@ import { auth } from "@clerk/nextjs/server";
 import React from "react";
 
 interface InvoiceDetailPageProps {
-  params: {
-    _id: string;
-  };
+  params: Promise<{ _id: string }>;
 }
 
 const InvoiceDetailPage = async ({ params }: InvoiceDetailPageProps) => {
   const { userId } = await auth();
-  const { _id } = params;
+  const { _id } = await params;
   console.log(_id, "id in details page");
   if (!userId) {
     return;
