@@ -83,9 +83,6 @@
 @utility text-muted-blues-200_muted-blues-100 {
   @apply text-muted-blues-200 dark:text-muted-blues-100;
 }
-@utility text-muted-blues-200_muted-blues-100 {
-  @apply text-muted-blues-200 dark:text-muted-blues-100;
-}
 @utility text-muted-blues-300_muted-blues-100 {
   @apply text-muted-blues-300 dark:text-muted-blues-100;
 }
@@ -210,5 +207,6 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: "League Spartan", sans-serif;
   }
 }

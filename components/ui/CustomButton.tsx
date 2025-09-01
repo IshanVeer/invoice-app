@@ -11,6 +11,8 @@ interface Buttonprops {
   handleMarkInvoiceAsPaid?: () => void;
   setIsDraft?: () => void;
   handleCloseInvoiceForm?: () => void;
+  handleDeleteModal?: () => void;
+  closeDeleteModal?: () => void;
   action?: string;
   buttonType?: "button" | "reset" | "submit";
   className?: string;
@@ -36,6 +38,8 @@ const CustomButton = ({
   handleMarkInvoiceAsPaid,
   handleCloseInvoiceForm,
   setIsDraft,
+  handleDeleteModal,
+  closeDeleteModal,
 }: Buttonprops) => {
   const clickHandler = () => {
     if (setIsDraft) {
@@ -55,6 +59,10 @@ const CustomButton = ({
 
       case "close-form":
         return handleCloseInvoiceForm?.();
+      case "open-delete-modal":
+        return handleDeleteModal?.();
+      case "close-delete-modal":
+        return closeDeleteModal?.();
     }
   };
   return (

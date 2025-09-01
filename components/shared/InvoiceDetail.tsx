@@ -2,7 +2,7 @@
 import { InvoiceProps, ItemsProps } from "@/types";
 import { formatDate } from "@/lib/utils";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import CustomButton from "../ui/CustomButton";
 import Image from "next/image";
 import { useInvoiceForm } from "@/context/InvoiceProvider";
@@ -10,6 +10,7 @@ import FormSheet from "./FormSheet";
 import { deleteInvoice, markInvoiceAsPaid } from "@/lib/actions/user.action";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, easeOut, motion } from "motion/react";
+import InvoiceDeleteModal from "./InvoiceDeleteModal";
 
 interface InvoiceDetailProps {
   invoice: InvoiceProps;
@@ -17,6 +18,7 @@ interface InvoiceDetailProps {
 
 const InvoiceDetail = ({ invoice }: InvoiceDetailProps) => {
   const { openInvoiceForm, handleOpenEditInvoiceForm } = useInvoiceForm();
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const router = useRouter();
   const grandTotal = invoice.items.reduce(
     (acc: number, item: ItemsProps) => acc + item.price * item.quantity,
@@ -32,6 +34,14 @@ const InvoiceDetail = ({ invoice }: InvoiceDetailProps) => {
     await markInvoiceAsPaid({ invoiceId: invoice._id });
     router.refresh();
   };
+
+  const handleDeleteModal = () => {
+    setOpenDeleteModal(true);
+  };
+
+  const closeDeleteModal = () => {
+    setOpenDeleteModal(false);
+  };
   return (
     <>
       <AnimatePresence>
@@ -39,6 +49,13 @@ const InvoiceDetail = ({ invoice }: InvoiceDetailProps) => {
           <FormSheet invoice={invoice} mode="edit" />
         )}
       </AnimatePresence>
+      {openDeleteModal && (
+        <InvoiceDeleteModal
+          invoiceId={invoice._id}
+          handleDeleteInvoice={handleDeleteInvoice}
+          closeDeleteModal={closeDeleteModal}
+        />
+      )}
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -100,8 +117,8 @@ const InvoiceDetail = ({ invoice }: InvoiceDetailProps) => {
               handleOpenEditInvoiceForm={handleOpenEditInvoiceForm}
             />
             <CustomButton
-              action="delete-invoice"
-              handleDeleteInvoice={handleDeleteInvoice}
+              action="open-delete-modal"
+              handleDeleteModal={handleDeleteModal}
               buttonStyle="button-5"
               label="delete"
             />
